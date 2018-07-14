@@ -68,12 +68,12 @@ $greenTagColor:#66bb3c; //active class
 	& .#{$className}_daysWrap {
 		width: 100%;
 		.disabled {
-			background-color: $distableedbgc;
+			background-color: #f8f8f8;
 		}
+		.calendars_days,
 		.hasData {
 			height: 89px;
 			padding: 3px;
-			margin-left: -4px;
 			width: 14.2%;
 			border-top: 1px solid lightgray;
 			display: inline-block; // outline  : 1px solid gray;

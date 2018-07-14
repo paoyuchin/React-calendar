@@ -109,21 +109,16 @@ function renderEvent(targetMonth) {
   let $li = $('<li class="calendars_days"></li>')
   //build calendars_daysWrap
   let $calendars_daysWrap = $('<ul class="calendars_daysWrap"></ul>');
-  for (let i = 0; i < 42; i++) {
-    (function (i) {
-      let _li = $li.clone();
-      let _date = $date.clone();
-      if (i >= firstWeekDay && i <= monthlyDays) {
-        _date
-          .children('span')
-          .text(i - firstWeekDay + 1);
-      } else {
-        _li.addClass('disabled');
-      }
-      _date.appendTo(_li);
-      $calendars_daysWrap.append(_li);
-    })(i);
+  for (var i = 0; i < 42; i++) {
+    $li.addClass('disabled');
+    $calendars_daysWrap.append($li.clone());
   } //print all cell and give disabled color
+
+  for (var i = 0; i < monthlyDays + 1; i++) {
+    $date.children('span').text('test')
+    $li.append($date);
+    $calendars_daysWrap.append($hasData.clone());
+  } //print each day's number
 
   this.$ele.append($calendars_daysWrap);
 }; //renderEvent

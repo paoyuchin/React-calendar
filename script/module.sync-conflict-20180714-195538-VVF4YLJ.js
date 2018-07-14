@@ -93,38 +93,33 @@ function initLayout(withMonth) {
 
 function renderEvent(targetMonth) {
   targetMonth = moment(targetMonth, 'YYYYMM');
+  console.log(targetMonth);
   let monthlyDays = targetMonth.daysInMonth();
-  console.log(monthlyDays);
   let firstWeekDay = targetMonth.startOf('month').get('weekday');
   console.log('firstWeekDay', firstWeekDay);
   //element
-  let $date = $('<div class="date"></div>'); // .date
-  $date.append($('<span></span>'));
+  let $date = $('<div class="date"></div>'); // li 底下
   let $status = $('<div class="status"></div>');
   let $group = $('<div class="group"></div>');
   let $price = $('<div class="price"></div>');
   let $sell = $('<div class="sell"></div>');
-
   //build hasData
-  let $li = $('<li class="calendars_days"></li>')
+  let $hasData = $('<li class="calendars_days hasData"></li>')
+    .append($status)
+    .append($group)
+    .append($price)
+    .append($sell);
   //build calendars_daysWrap
   let $calendars_daysWrap = $('<ul class="calendars_daysWrap"></ul>');
-  for (let i = 0; i < 42; i++) {
-    (function (i) {
-      let _li = $li.clone();
-      let _date = $date.clone();
-      if (i >= firstWeekDay && i <= monthlyDays) {
-        _date
-          .children('span')
-          .text(i - firstWeekDay + 1);
-      } else {
-        _li.addClass('disabled');
-      }
-      _date.appendTo(_li);
-      $calendars_daysWrap.append(_li);
-    })(i);
+  for (var i = 0; i < 42; i++) {
+    $hasData.addClass('disabled');
+    $calendars_daysWrap.append($hasData.clone());
   } //print all cell and give disabled color
 
+  for (var i = 1; i < monthlyDays + 1; i++) {
+    // if (i - firstWeekDay >= 0) {
+    // }
+  } //print day's number
   this.$ele.append($calendars_daysWrap);
 }; //renderEvent
 

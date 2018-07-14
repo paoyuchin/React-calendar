@@ -54,34 +54,42 @@ body {
     width: 100%; }
     .calendars .calendars_daysWrap .disabled {
       background-color: #f8f8f8; }
+    .calendars .calendars_daysWrap .calendars_days,
     .calendars .calendars_daysWrap .hasData {
       height: 89px;
       padding: 3px;
-      margin-left: -4px;
       width: 14.2%;
       border-top: 1px solid lightgray;
       display: inline-block;
       border-left: 1px solid lightgray;
       font-size: 12px;
       position: relative; }
+      .calendars .calendars_daysWrap .calendars_days .GuaranteedTripTag,
       .calendars .calendars_daysWrap .hasData .GuaranteedTripTag {
         position: absolute;
         right: 0;
         top: 0;
         background-color: #66bb3c;
         color: white; }
+      .calendars .calendars_daysWrap .calendars_days div,
       .calendars .calendars_daysWrap .hasData div {
         text-align: left; }
+      .calendars .calendars_daysWrap .calendars_days span,
       .calendars .calendars_daysWrap .hasData span {
         display: inline-block; }
+      .calendars .calendars_daysWrap .calendars_days .status,
       .calendars .calendars_daysWrap .hasData .status {
         color: #24a07c; }
+      .calendars .calendars_daysWrap .calendars_days .status_orange,
       .calendars .calendars_daysWrap .hasData .status_orange {
         color: orange; }
+      .calendars .calendars_daysWrap .calendars_days .sell,
       .calendars .calendars_daysWrap .hasData .sell {
         color: #666; }
+      .calendars .calendars_daysWrap .calendars_days .group,
       .calendars .calendars_daysWrap .hasData .group {
         color: #666; }
+      .calendars .calendars_daysWrap .calendars_days .price,
       .calendars .calendars_daysWrap .hasData .price {
         color: #e10500;
         font-weight: 800; }
