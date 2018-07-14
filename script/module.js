@@ -53,12 +53,84 @@ const ModuleDefaults = {
 //Define you want to get function returns from outside of scope
 const ModuleReturns = [];
 
+function getEvents(yearMonth) {
+  let ym = moment(yearMonth, 'YYYYMM');
+  return this.data[ym.get('year')][ym.get('month')];
+};
+
+function renderEvent() {
+  let calendars_tabWrap = $('<div class="calendars_tabWrap"></div>');
+  let tabBox = $('<div class="tabBox"></div>');
+  let preBtn = $('<div class="pre btn"></div>');
+  let lefticon = $('<i class="fas fa-caret-left"></i>');
+  let tab = $('<span class="tab"></span>').text('2017 7月');
+  let nextBtn = $('<div class="next btn"></div>');
+  let righticon = $('<i class="fas fa-caret-right"></i>');
+  //btn
+  preBtn.append(lefticon);
+  nextBtn.append(righticon);
+  //calendars_weeksWrap
+  let calendars_weeksWrap = $('<div class="calendars_weeksWrap"></div>');
+  let sun = $('<span></span>').text('星期日');
+  let monday = $('<span></span>').text('星期一');
+  let tuesday = $('<span></span>').text('星期二');
+  let wednesday = $('<span></span>').text('星期三');
+  let thursday = $('<span></span>').text('星期四');
+  let fri = $('<span></span>').text('星期五');
+  let sat = $('<span></span>').text('星期六');
+
+  //tabBox
+  $('.calendars').append(calendars_tabWrap);
+  calendars_tabWrap.append(tabBox);
+  tabBox.append(preBtn);
+  tabBox.append(tab);
+  tabBox.append(nextBtn);
+  //calendars_weeksWrap
+  $('.calendars').append(calendars_weeksWrap);
+  calendars_weeksWrap.append(sun);
+  calendars_weeksWrap.append(monday);
+  calendars_weeksWrap.append(tuesday);
+  calendars_weeksWrap.append(wednesday);
+  calendars_weeksWrap.append(thursday);
+  calendars_weeksWrap.append(fri);
+  calendars_weeksWrap.append(sat);
+  //cell
+  let calendars_daysWrap = $('<ul class="calendars_daysWrap"></ul>'); //ui
+  let hasData = $('<li class="calendars_days hasData"></li>'); //li
+  let date = $('<div class="date"></div>'); // li 底下
+  let status = $('<div class="status"></div>');
+  let group = $('<div class="group"></div>');
+  let price = $('<div class="price"></div>');
+  let sell = $('<div class="sell"></div>');
+
+  calendars_daysWrap.append(hasData);
+  $('.calendars').append(calendars_daysWrap);
+
+  for (i = 0; i < 42; i++) {
+
+    let hasData = $('<li class="calendars_days hasData"></li>'); //li
+    if (hasData) {
+
+      $格子.append(日期div)
+      // if (這格有event) { //假設這格不但有日，還有event．那就把event近上去
+      //   $格子.append(一堆span)
+      // }
+    } else {
+      $格子.addClass('disabled')
+    }
+  }
+
+
+
+}; //renderEvent
+
 class Module {
   constructor(ele, options) {
     this.ele = ele;
     this.$ele = $(ele);
     this.option = options;
     this.currentMonth = this.option.initYearMonth;
+    
   }
 
   init() {
@@ -77,12 +149,8 @@ class Module {
       }
       this.data[year][month].push(data[i]);
     } //for
-
-    console.log(this.data['2016']);
-    console.log(this.data['2017']);
-    console.log(this.data['2018']);
-    console.log(this.data[year][mont]);
-    //
+    getEvents.call(this, this.currentMonth);
+    renderEvent.call(this);
   } // first run here
 
   methods() {

@@ -6,355 +6,390 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="../../core/core.css" rel="stylesheet">
-	<link href="./css.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-1.x-git.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 	<title>Magaele: newCalander</title>
 <link href="css.css" rel="stylesheet"></head>
 
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-24">
-				<div class="newCalander">
-	<div class="calendars">
-		<!-- // 可加上這兩個修飾符來切換日曆模式或列表模式 calendars_daymode,calendars_listmode -->
-		<div class="calendars_tabWrap">
-			<div class="tabBox">
-				<div class="pre btn">
-					<i class="fas fa-caret-left"></i>
-				</div>
-				<span class="tab">
-					2017 7月
-				</span>
-				<span class="tab">
-					2017 8月
-				</span>
-				<span class="tab">
-					2017 9月
-				</span>
-				<div class="next btn">
-					<i class="fas fa-caret-right"></i>
-				</div>
+	<div>
+		<!-- <div class="newCalander"> -->
+<div class="calendars">
+	<!-- // 可加上這兩個修飾符來切換日曆模式或列表模式 calendars_daymode,calendars_listmode -->
+	<!-- <div class="calendars_tabWrap">
+		<div class="tabBox">
+			<div class="pre btn">
+				<i class="fas fa-caret-left"></i>
+			</div>
+			<span class="tab">
+				2017 7月
+			</span>
+			<span class="tab">
+				2017 8月
+			</span>
+			<span class="tab">
+				2017 9月
+			</span>
+			<div class="next btn">
+				<i class="fas fa-caret-right"></i>
 			</div>
 		</div>
-		<div class="calendars_weeksWrap">
-			<span>星期日</span>
-			<span>星期一</span>
-			<span>星期二</span>
-			<span>星期三</span>
-			<span>星期四</span>
-			<span>星期五</span>
-			<span>星期六</span>
-		</div>
-		<ul class="calendars_daysWrap">
-			<li class="calendars_days disabled"></li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status＿orange">額滿</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-				<span class="GuaranteedTripTag">保證出團</span>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status＿orange">額滿</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-				<span class="GuaranteedTripTag">保證出團</span>
+	</div> -->
+	<!-- <div class="calendars_weeksWrap">
+		<span>星期日</span>
+		<span>星期一</span>
+		<span>星期二</span>
+		<span>星期三</span>
+		<span>星期四</span>
+		<span>星期五</span>
+		<span>星期六</span>
+	</div> -->
+	<!-- <ul class="calendars_daysWrap">
+		<li class="calendars_days disabled"></li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status＿orange">額滿</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+			<span class="GuaranteedTripTag">保證出團</span>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status＿orange">額滿</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+			<span class="GuaranteedTripTag">保證出團</span>
 
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date"></div>
-				<div class="status"></div>
-				<div class="sell"></div>
-				<div class="group"></div>
-				<div class="price"></div>
-			</li>
-			<li class="calendars_days hasData ">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-				<span class="GuaranteedTripTag">保證出團</span>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status_orange">額滿</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status_orange">額滿</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status_orange">額滿</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-			<li class="calendars_days hasData">
-				<div class="date">1</div>
-				<div class="status">候補</div>
-				<div class="sell">可賣：0</div>
-				<div class="group">團位：0</div>
-				<div class="price">$4,999</div>
-			</li>
-		</ul>
-	</div>
-	<!-- string -->
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date"></div>
+			<div class="status"></div>
+			<div class="sell"></div>
+			<div class="group"></div>
+			<div class="price"></div>
+		</li>
+		<li class="calendars_days hasData ">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+			<span class="GuaranteedTripTag">保證出團</span>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status_orange">額滿</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status_orange">額滿</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status_orange">額滿</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+	</ul> -->
 </div>
+<!-- string -->
+<!-- </div> -->
 
-			</div>
-		</div>
 	</div>
 	<script src="./module.js"></script>
 <script type="text/javascript" src="module.js"></script></body>
+<script>
+	$('.calendars').calendar({
+		dataSource: [{
+			"date": "2016/12/15", // {string} YYYY/MM/DD 
+			"price": "234567", // {string|number} XXXXXX | 近期上架
+			"availableVancancy": 0, // {number} 
+			"totalVacnacy": 20, // {number} 
+			"status": "報名" // {string} 報名(#24a07c) | 後補(#24a07c) | 預定(#24a07c) | 截止(#ff7800)
+		}],
+		// 輸入一開始要在哪一個月份 [string] YYYYMM，若輸入的年月沒有資料，
+		// 就要找相近的年月，若前一個月後一個月都有資料，就顯示資料比數比較多的那一個月
+		initYearMonth: '201705',
+		// 設定各資料的key 
+		dataKeySetting: {
+			// 保證出團 
+			'guaranteed': 'guaranteed',
+			// 狀態 
+			'status': 'status',
+			//可賣團位
+			'可賣團位': 'availableVancancy',
+			// 團位 
+			'total': 'totalVacnacy',
+			// 價格 
+			'price': 'price'
+		},
+
+		onClickPrev: function ($btn, data, module) {
+			console.log($btn, data, module);
+		},
+		// 點下一個月時 
+		onClickNext: function ($btn, data, module) {
+			console.log($btn, data, module);
+		},
+		// 點日期時 
+		onClickDate: function ($date, data) {
+			console.log($date, data);
+		}
+	});
+</script>
 
 </html>
