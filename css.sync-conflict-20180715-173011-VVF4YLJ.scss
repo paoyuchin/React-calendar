@@ -1,5 +1,6 @@
 * {
-	box-sizing: border-box; // outline: 1px solid red;
+	box-sizing: border-box;
+	outline: 1px solid red;
 	text-align: center;
 	border-spacing: 0;
 	margin: 0;
@@ -26,7 +27,7 @@ $greenTagColor:#66bb3c; //active class
 } //
 .#{$className} {
 	width: 50%;
-	height: 615px;
+	height: auto;
 	text-align: center;
 	border: 1px solid lightgray;
 	& .#{$className}_tabWrap {
@@ -78,7 +79,6 @@ $greenTagColor:#66bb3c; //active class
 			border-top: 1px solid lightgray;
 			display: inline-block; // outline  : 1px solid gray;
 			border-left: 1px solid lightgray;
-			float: left;
 			font-size: 12px;
 			position: relative;
 			.GuaranteedTripTag {

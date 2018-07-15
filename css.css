@@ -19,7 +19,7 @@ body {
 
 .calendars {
   width: 50%;
-  height: auto;
+  height: 615px;
   text-align: center;
   border: 1px solid lightgray; }
   .calendars .calendars_tabWrap {
@@ -62,6 +62,7 @@ body {
       border-top: 1px solid lightgray;
       display: inline-block;
       border-left: 1px solid lightgray;
+      float: left;
       font-size: 12px;
       position: relative; }
       .calendars .calendars_daysWrap .calendars_days .GuaranteedTripTag,

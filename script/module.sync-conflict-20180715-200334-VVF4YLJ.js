@@ -1,5 +1,12 @@
 import moment from "moment/src/moment";
 
+// $.ajax({
+//   method: 'GET',
+//   url: '140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json
+// }).done(function (data) {
+//   console.log(data);
+// });
+
 //Define module name here
 const ModuleName = "calendar";
 
@@ -190,9 +197,9 @@ function renderEvent(targetMonth) {
       _date.prependTo(_li);
       _li.appendTo($calendars_daysWrap);
     })(i);
+    $calendars_daysWrap.html('');
 
   } //print all cell and give disabled color
-  this.$ele.find('.calendars_daysWrap').remove();
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent
 
@@ -206,20 +213,6 @@ class Module {
     this.currentMonth = this.option.initYearMonth;
   }
   init() {
-    $.ajax({
-      type: 'GET',
-      headers: {
-        'Access-Control-Allow-Origin': 'http://140.115.236.72'
-      },
-      url: 'http://140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json',
-      dataType: 'jsonp',
-      success: function (data) {
-        console.log('hi')
-      }
-    }).error(function (data) {
-      console.log(data)
-    });
-
     const data = require("../json/data1.json");
     let dataLength = data.length;
     this.data = {};

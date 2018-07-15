@@ -1,5 +1,12 @@
 import moment from "moment/src/moment";
 
+// $.ajax({
+//   method: 'GET',
+//   url: '140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json
+// }).done(function (data) {
+//   console.log(data);
+// });
+
 //Define module name here
 const ModuleName = "calendar";
 
@@ -88,7 +95,7 @@ function addEvent(event) {
       this.data[year][month][date].price < event.price
     ) {
       this.data[year][month][date] = event;
-    } //還是本來的比較厲害
+    } //輸了 還是本來的比較屌
   }
 }
 
@@ -137,8 +144,6 @@ function initLayout(withMonth) {
   // builds calendar
   this.$ele.append($calendars_tabWrap);
   this.$ele.append($calendars_weeksWrap);
-  this.$btnLeft = $(".pre");
-  this.$btnRight = $(".next");
 }
 
 function renderEvent(targetMonth) {
@@ -155,10 +160,12 @@ function renderEvent(targetMonth) {
   let $price = $('<div class="price"></div>');
   let $sell = $('<div class="sell"></div>');
   // let $GuaranteedTripTag = $('<span class="GuaranteedTripTag"></span>').text("保證出團");
+
   //build hasData
   let $li = $('<li class="calendars_days"></li>');
   //build calendars_daysWrap
   let $calendars_daysWrap = $('<ul class="calendars_daysWrap"></ul>');
+  console.log(events);
   for (let i = 0; i < 42; i++) {
     (function (i) {
       let _li = $li.clone();
@@ -190,9 +197,8 @@ function renderEvent(targetMonth) {
       _date.prependTo(_li);
       _li.appendTo($calendars_daysWrap);
     })(i);
-
   } //print all cell and give disabled color
-  this.$ele.find('.calendars_daysWrap').remove();
+
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent
 
@@ -204,39 +210,25 @@ class Module {
     this.$ele = $(ele);
     this.option = options;
     this.currentMonth = this.option.initYearMonth;
+    this.$btnLeft = $(".pre");
+    this.$btnRight = $(".next");
   }
   init() {
-    $.ajax({
-      type: 'GET',
-      headers: {
-        'Access-Control-Allow-Origin': 'http://140.115.236.72'
-      },
-      url: 'http://140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json',
-      dataType: 'jsonp',
-      success: function (data) {
-        console.log('hi')
-      }
-    }).error(function (data) {
-      console.log(data)
-    });
-
     const data = require("../json/data1.json");
     let dataLength = data.length;
     this.data = {};
     for (var i = 0; i < dataLength; i++) {
       addEvent.call(this, data[i]);
     } //for
-    console.log(this.data);
-    initLayout.call(this, this.currentMonth); //從這邊接到月份 參數傳到function
-    renderEvent.call(this, this.currentMonth);
     this.$btnLeft.click(() => {
       this.currentMonth = moment(this.currentMonth, 'YYYYMM').add(-1, 'M').format('YYYYMM');
-      renderEvent.call(this, this.currentMonth);
     });
     this.$btnRight.click(() => {
+      console.log('hi');
       this.currentMonth = moment(this.currentMonth, 'YYYYMM').add(1, 'M').format('YYYYMM');
-      renderEvent.call(this, this.currentMonth);
     });
+    initLayout.call(this, this.currentMonth); //從這邊接到月份 參數傳到function
+    renderEvent.call(this, this.currentMonth);
   } // first run here
 
   methods() {

@@ -4955,7 +4955,7 @@ var ModuleDefaults = {
   // 輸入一開始要在哪一個月份 [string] YYYYMM
   //若輸入的年月沒有資料，就要找相近的年月
   //若前一個月後一個月都有資料，就顯示資料比數比較多的那一個月
-  initYearMonth: "201705",
+  initYearMonth: "201807",
   // 設定各資料的key
   dataKeySetting: {
     // 保證出團
@@ -4989,17 +4989,48 @@ var ModuleDefaults = {
 //Define you want to get function returns from outside of scope
 var ModuleReturns = [];
 
+function addEvent(event) {
+  var date = (0, _moment2.default)(event.date);
+  var year = date.get("year");
+  var month = date.get("month");
+  var date = date.get("date");
+  if (!this.data[year]) {
+    this.data[year] = {};
+  }
+  if (!this.data[year][month]) {
+    this.data[year][month] = [];
+  }
+  if (!this.data[year][month][date]) {
+    // empty
+    this.data[year][month][date] = event;
+  } else {
+    // already has event.
+    if ( //保證出團
+    this.data[year][month][date].guaranteed == false && event.guaranteed == true) {
+      this.data[year][month][date] = event;
+    } else if ( //報名
+    this.data[year][month][date].guaranteed == true && event.guaranteed == true && this.data[year][month][date].status != '報名' && event.status == '報名'
+    //報名 後補 預定 截止
+    ) {
+        this.data[year][month][date] = event;
+      } else if ( //價格便宜
+    this.data[year][month][date].status == '報名' && event.status == '報名' && this.data[year][month][date].price < event.price) {
+      this.data[year][month][date] = event;
+    } //還是本來的比較厲害
+  }
+}
+
 function getEvents(yearMonth) {
-  var ym = (0, _moment2.default)(yearMonth, 'YYYYMM');
-  return this.data[ym.get('year')][ym.get('month')];
+  var ym = (0, _moment2.default)(yearMonth, "YYYYMM");
+  return this.data[ym.get("year")][ym.get("month")];
 }
 
 function initLayout(withMonth) {
-  withMonth = (0, _moment2.default)(withMonth, 'YYYYMM'); //把傳進來的參數變成moment物件
+  withMonth = (0, _moment2.default)(withMonth, "YYYYMM"); //把傳進來的參數變成moment物件
   var className = this.$ele[0].className;
   // builds elements in tab box
   var preBtn = $('<div class="pre btn"></div>').append($('<i class="fas fa-caret-left"></i>'));
-  var tab = $('<span class="tab"></span>').text(withMonth.get('year') + ' ' + (withMonth.get('month') + 1) + '月'); //把年份月份，傳進text函數，顯示出來
+  var tab = $('<span class="tab"></span>').text(withMonth.get("year") + " " + (withMonth.get("month") + 1) + "月"); //把年份月份，傳進text函數，顯示出來
   var nextBtn = $('<div class="next btn"></div>').append($('<i class="fas fa-caret-right"></i>'));
 
   // builds tab box
@@ -5009,27 +5040,29 @@ function initLayout(withMonth) {
   var $calendars_tabWrap = $('<div class="' + className + '_tabWrap"></div>').append($tabBox);
 
   // builds weekswrap
-  var $calendars_weeksWrap = $('<div class="' + className + '_weeksWrap"></div>').append($('<span>星期日</span>')).append($('<span>星期一</span>')).append($('<span>星期二</span>')).append($('<span>星期三</span>')).append($('<span>星期四</span>')).append($('<span>星期五</span>')).append($('<span>星期六</span>'));
+  var $calendars_weeksWrap = $('<div class="' + className + '_weeksWrap"></div>').append($("<span>星期日</span>")).append($("<span>星期一</span>")).append($("<span>星期二</span>")).append($("<span>星期三</span>")).append($("<span>星期四</span>")).append($("<span>星期五</span>")).append($("<span>星期六</span>"));
 
   // builds calendar
   this.$ele.append($calendars_tabWrap);
   this.$ele.append($calendars_weeksWrap);
+  this.$btnLeft = $(".pre");
+  this.$btnRight = $(".next");
 }
 
 function renderEvent(targetMonth) {
-  targetMonth = (0, _moment2.default)(targetMonth, 'YYYYMM');
+  targetMonth = (0, _moment2.default)(targetMonth, "YYYYMM");
+  var events = this.data[targetMonth.get("year")][targetMonth.get("month")];
   var monthlyDays = targetMonth.daysInMonth();
-  console.log(monthlyDays);
-  var firstWeekDay = targetMonth.startOf('month').get('weekday');
-  console.log('firstWeekDay', firstWeekDay);
+  // console.log(monthlyDays);
+  var firstWeekDay = targetMonth.startOf("month").get("weekday");
   //element
   var $date = $('<div class="date"></div>'); // .date
-  $date.append($('<span></span>'));
+  // $date.append($("<span></span>"));
   var $status = $('<div class="status"></div>');
   var $group = $('<div class="group"></div>');
   var $price = $('<div class="price"></div>');
   var $sell = $('<div class="sell"></div>');
-
+  // let $GuaranteedTripTag = $('<span class="GuaranteedTripTag"></span>').text("保證出團");
   //build hasData
   var $li = $('<li class="calendars_days"></li>');
   //build calendars_daysWrap
@@ -5038,18 +5071,39 @@ function renderEvent(targetMonth) {
     (function (i) {
       var _li = $li.clone();
       var _date = $date.clone();
-      if (i >= firstWeekDay && i <= monthlyDays) {
-        _date.children('span').text(i - firstWeekDay + 1);
+      var _status = $status.clone();
+      var _group = $group.clone();
+      var _price = $price.clone();
+      var _sell = $sell.clone();
+      // let _GuaranteedTripTag = $GuaranteedTripTag.clone();zz
+      var eventDate = i - firstWeekDay;
+      if (i >= firstWeekDay && i <= monthlyDays + firstWeekDay - 1) {
+        //直到需要加日期那一天
+        _date.text(eventDate + 1);
+        if (events[eventDate + 1]) {
+          // 在這邊把event的資料放進li
+          _status.text(events[eventDate + 1].status);
+          _group.text("團位：" + events[eventDate + 1].totalVacnacy);
+          _price.text("$" + events[eventDate + 1].price);
+        }
+        // $calendars_daysWrap.append(_li);
       } else {
-        _li.addClass('disabled');
-      }
-      _date.appendTo(_li);
-      $calendars_daysWrap.append(_li);
+        _li.addClass("disabled");
+      } ///一進來程式會一直執行這一段
+      _status.appendTo(_li);
+      _group.appendTo(_li);
+      _price.appendTo(_li);
+      _sell.appendTo(_li);
+      // _GuaranteedTripTag.appendTo(_li);
+      _date.prependTo(_li);
+      _li.appendTo($calendars_daysWrap);
     })(i);
   } //print all cell and give disabled color
+  this.$ele.find('.calendars_daysWrap').remove();
+  $calendars_daysWrap.appendTo(this.$ele);
+} //renderEvent
 
-  this.$ele.append($calendars_daysWrap);
-}; //renderEvent
+//btn
 
 var Module = function () {
   function Module(ele, options) {
@@ -5064,24 +5118,39 @@ var Module = function () {
   _createClass(Module, [{
     key: "init",
     value: function init() {
+      var _this = this;
+
+      $.ajax({
+        type: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': 'http://140.115.236.72'
+        },
+        url: 'http://140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json',
+        dataType: 'jsonp',
+        success: function success(data) {
+          console.log('hi');
+        }
+      }).error(function (data) {
+        console.log(data);
+      });
+
       var data = __webpack_require__(111);
       var dataLength = data.length;
       this.data = {};
       for (var i = 0; i < dataLength; i++) {
-        var date = (0, _moment2.default)(data[i].date);
-        var year = date.get("year");
-        var month = date.get("month");
-        if (!this.data[year]) {
-          this.data[year] = {};
-        }
-        if (!this.data[year][month]) {
-          this.data[year][month] = [];
-        }
-        this.data[year][month].push(data[i]);
+        addEvent.call(this, data[i]);
       } //for
+      console.log(this.data);
       initLayout.call(this, this.currentMonth); //從這邊接到月份 參數傳到function
-      getEvents.call(this, this.currentMonth);
       renderEvent.call(this, this.currentMonth);
+      this.$btnLeft.click(function () {
+        _this.currentMonth = (0, _moment2.default)(_this.currentMonth, 'YYYYMM').add(-1, 'M').format('YYYYMM');
+        renderEvent.call(_this, _this.currentMonth);
+      });
+      this.$btnRight.click(function () {
+        _this.currentMonth = (0, _moment2.default)(_this.currentMonth, 'YYYYMM').add(1, 'M').format('YYYYMM');
+        renderEvent.call(_this, _this.currentMonth);
+      });
     } // first run here
 
   }, {
@@ -5098,6 +5167,7 @@ exports.ModuleName = ModuleName;
 exports.ModuleDefaults = ModuleDefaults;
 exports.ModuleReturns = ModuleReturns;
 exports.Module = Module;
+// http: //140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json
 
 /***/ }),
 /* 73 */

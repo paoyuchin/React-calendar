@@ -1,5 +1,12 @@
 import moment from "moment/src/moment";
 
+// $.ajax({
+//   method: 'GET',
+//   url: '140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json
+// }).done(function (data) {
+//   console.log(data);
+// });
+
 //Define module name here
 const ModuleName = "calendar";
 
@@ -37,60 +44,21 @@ const ModuleDefaults = {
   // @param $btn {$object} jquery 物件
   // @param $data {array} 上一個月的資料
   // @param module {object} 此模組實例物件
-  onClickPrev: function ($btn, data, module) {
+  onClickPrev: function($btn, data, module) {
     console.log($btn, data, module);
   },
   // 點下一個月時
-  onClickNext: function ($btn, data, module) {
+  onClickNext: function($btn, data, module) {
     console.log($btn, data, module);
   },
   // 點日期時
-  onClickDate: function ($date, data) {
+  onClickDate: function($date, data) {
     console.log($date, data);
   }
 };
 
 //Define you want to get function returns from outside of scope
 const ModuleReturns = [];
-
-function addEvent(event) {
-  var date = moment(event.date);
-  var year = date.get("year");
-  var month = date.get("month");
-  var date = date.get("date");
-  if (!this.data[year]) {
-    this.data[year] = {};
-  }
-  if (!this.data[year][month]) {
-    this.data[year][month] = [];
-  }
-  if (!this.data[year][month][date]) {
-    // empty
-    this.data[year][month][date] = event;
-  } else {
-    // already has event.
-    if ( //保證出團
-      this.data[year][month][date].guaranteed == false &&
-      event.guaranteed == true
-    ) {
-      this.data[year][month][date] = event;
-    } else if ( //報名
-      this.data[year][month][date].guaranteed == true &&
-      event.guaranteed == true &&
-      this.data[year][month][date].status != '報名' &&
-      event.status == '報名'
-      //報名 後補 預定 截止
-    ) {
-      this.data[year][month][date] = event;
-    } else if ( //價格便宜
-      this.data[year][month][date].status == '報名' &&
-      event.status == '報名' &&
-      this.data[year][month][date].price < event.price
-    ) {
-      this.data[year][month][date] = event;
-    } //還是本來的比較厲害
-  }
-}
 
 function getEvents(yearMonth) {
   let ym = moment(yearMonth, "YYYYMM");
@@ -124,8 +92,8 @@ function initLayout(withMonth) {
 
   // builds weekswrap
   let $calendars_weeksWrap = $(
-      '<div class="' + className + '_weeksWrap"></div>'
-    )
+    '<div class="' + className + '_weeksWrap"></div>'
+  )
     .append($("<span>星期日</span>"))
     .append($("<span>星期一</span>"))
     .append($("<span>星期二</span>"))
@@ -137,8 +105,6 @@ function initLayout(withMonth) {
   // builds calendar
   this.$ele.append($calendars_tabWrap);
   this.$ele.append($calendars_weeksWrap);
-  this.$btnLeft = $(".pre");
-  this.$btnRight = $(".next");
 }
 
 function renderEvent(targetMonth) {
@@ -149,50 +115,48 @@ function renderEvent(targetMonth) {
   let firstWeekDay = targetMonth.startOf("month").get("weekday");
   //element
   let $date = $('<div class="date"></div>'); // .date
-  // $date.append($("<span></span>"));
+  $date.append($("<span></span>"));
   let $status = $('<div class="status"></div>');
   let $group = $('<div class="group"></div>');
   let $price = $('<div class="price"></div>');
   let $sell = $('<div class="sell"></div>');
-  // let $GuaranteedTripTag = $('<span class="GuaranteedTripTag"></span>').text("保證出團");
+  let $GuaranteedTripTag = $('<span class="GuaranteedTripTag"></span>').text(
+    "保證出團"
+  );
+
   //build hasData
   let $li = $('<li class="calendars_days"></li>');
   //build calendars_daysWrap
   let $calendars_daysWrap = $('<ul class="calendars_daysWrap"></ul>');
   for (let i = 0; i < 42; i++) {
-    (function (i) {
+    (function(i) {
       let _li = $li.clone();
       let _date = $date.clone();
-      let _status = $status.clone();
-      let _group = $group.clone();
-      let _price = $price.clone();
-      let _sell = $sell.clone();
-      // let _GuaranteedTripTag = $GuaranteedTripTag.clone();zz
       let eventDate = i - firstWeekDay;
       if (i >= firstWeekDay && i <= monthlyDays + firstWeekDay - 1) {
         //直到需要加日期那一天
-        _date.text(eventDate + 1);
-        if (events[eventDate + 1]) {
-          // 在這邊把event的資料放進li
-          _status.text(events[eventDate + 1].status);
-          _group.text("團位：" + events[eventDate + 1].totalVacnacy);
-          _price.text("$" + events[eventDate + 1].price);
+        _date.children("span").text(eventDate + 1);
+        // console.log(events);
+        for (let j = 0; j < events.length; j++) {
+          if (moment(events[j].date).get("date") == eventDate) {
+            // 在這邊把event的資料放進li
+            console.log(events[j].status);
+            console.log(events[j].date);
+            $li.append($status.text(events[j].status));
+            $li.append($group.text("團位：" + events[j].totalVacnacy));
+            $li.append($price.text("$" + events[j].price));
+            $calendars_daysWrap.append($li);
+            //if (events[j] >= 2 && moment(events[j].date).get('date') == eventDate) {} //資料重複篩選的 保證出團>報名>價格便宜
+          }
         }
-        // $calendars_daysWrap.append(_li);
       } else {
         _li.addClass("disabled");
       } ///一進來程式會一直執行這一段
-      _status.appendTo(_li);
-      _group.appendTo(_li);
-      _price.appendTo(_li);
-      _sell.appendTo(_li);
-      // _GuaranteedTripTag.appendTo(_li);
       _date.prependTo(_li);
       _li.appendTo($calendars_daysWrap);
     })(i);
-
   } //print all cell and give disabled color
-  this.$ele.find('.calendars_daysWrap').remove();
+
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent
 
@@ -204,39 +168,46 @@ class Module {
     this.$ele = $(ele);
     this.option = options;
     this.currentMonth = this.option.initYearMonth;
+    this.$btnLeft = $(".pre");
+    this.$btnRight = $(".next");
   }
   init() {
-    $.ajax({
-      type: 'GET',
-      headers: {
-        'Access-Control-Allow-Origin': 'http://140.115.236.72'
-      },
-      url: 'http://140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json',
-      dataType: 'jsonp',
-      success: function (data) {
-        console.log('hi')
-      }
-    }).error(function (data) {
-      console.log(data)
-    });
-
     const data = require("../json/data1.json");
     let dataLength = data.length;
     this.data = {};
     for (var i = 0; i < dataLength; i++) {
-      addEvent.call(this, data[i]);
+      var date = moment(data[i].date);
+      var year = date.get("year");
+      var month = date.get("month");
+      var date = date.get("date");
+      if (!this.data[year]) {
+        this.data[year] = {};
+      }
+      if (!this.data[year][month]) {
+        this.data[year][month] = [];
+      }
+      if (!this.data[year][month][date]) {
+        // empty
+        this.data[year][month][date] = data[i];
+      } else {
+        // already has event.
+        if (
+          this.data[year][month][date].guaranteed == false &&
+          data[i].guaranteed == true
+        ) { data[i].guaranteed ==  } else if (
+          this.data[year][month][date].guaranteed == true &&
+          data[i].guaranteed == true 
+          &&
+          this.data[year][month][date].status == false &&
+          data[i].status == true
+        ) {
+        } else if(){
+        } //輸了 還是本來的比較屌
+      }
     } //for
-    console.log(this.data);
     initLayout.call(this, this.currentMonth); //從這邊接到月份 參數傳到function
+    getEvents.call(this, this.currentMonth);
     renderEvent.call(this, this.currentMonth);
-    this.$btnLeft.click(() => {
-      this.currentMonth = moment(this.currentMonth, 'YYYYMM').add(-1, 'M').format('YYYYMM');
-      renderEvent.call(this, this.currentMonth);
-    });
-    this.$btnRight.click(() => {
-      this.currentMonth = moment(this.currentMonth, 'YYYYMM').add(1, 'M').format('YYYYMM');
-      renderEvent.call(this, this.currentMonth);
-    });
   } // first run here
 
   methods() {
@@ -244,10 +215,5 @@ class Module {
   }
 }
 
-export {
-  ModuleName,
-  ModuleDefaults,
-  ModuleReturns,
-  Module
-};
+export { ModuleName, ModuleDefaults, ModuleReturns, Module };
 // http: //140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json
