@@ -107,7 +107,7 @@ $greenTagColor: #66bb3c; //active class
 		.disabled {
 			background-color: #f8f8f8;
 		}
-		.#{$className}_days,
+		.calendars_days,
 		.hasData {
 			height: 100px;
 			padding: 3px;
@@ -154,10 +154,11 @@ $greenTagColor: #66bb3c; //active class
 ////////////////////////////////////////////////////////////////////////////////
 .#{$className}.#{$className}_listmode {
 	width: 50%;
-	height: 680px;
 	text-align: center;
 	border: 1px solid lightgray;
-	height: 600px;
+	.calendars_weeksWrap {
+		display: none;
+	}
 	li {
 		// margin: 10px 0;
 		position: relative;
@@ -188,11 +189,15 @@ $greenTagColor: #66bb3c; //active class
 			padding-bottom: 15px;
 		}
 	}
-	& .#{$className}_weeksWrap {
-        display: none;
-    }
-	.#{$className}_days {
+	.calendars_days {
 		height: 85px; // margin: 10px 0;
+		.GuaranteedTripTag {
+			position: absolute;
+			left: 55px;
+			top: 52px;
+			background-color: $greenTagColor;
+			color: white;
+		}
 		.date,
 		.sell,
 		.group {
@@ -208,7 +213,8 @@ $greenTagColor: #66bb3c; //active class
 			float: left;
 			width: 50%;
 			font-size: 16px;
-			padding-right: 10px;
+			padding-right: 15px;
+			padding-top: 10px;
 		}
 		.group {
 			position: absolute;
@@ -239,7 +245,4 @@ $greenTagColor: #66bb3c; //active class
 			color: #24a07c;
 		}
 	}
-	.#{$className}_days.disabled {
-        display: none;
-    }
 }

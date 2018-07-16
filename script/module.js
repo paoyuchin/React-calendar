@@ -282,6 +282,7 @@ class Module {
     this.$ele.remove();
   }
 
+
 }
 export {
   ModuleName,
