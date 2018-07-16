@@ -4994,6 +4994,11 @@ var ModuleDefaults = {
 var ModuleReturns = [];
 
 function addEvent(event) {
+  // kjb
+  if (!event.guaranteed) {
+    // preprocess
+    event.guaranteed = event.certain;
+  }
   var date = (0, _moment2.default)(event.date);
   var year = date.get("year");
   var month = date.get("month");
@@ -5009,16 +5014,19 @@ function addEvent(event) {
     this.data[year][month][date] = event;
   } else {
     // already has event.
-    if ( //保證出團
+    if (
+    //保證出團
     this.data[year][month][date].guaranteed == false && event.guaranteed == true) {
       this.data[year][month][date] = event;
-    } else if ( //報名
-    this.data[year][month][date].guaranteed == true && event.guaranteed == true && this.data[year][month][date].status != '報名' && event.status == '報名'
+    } else if (
+    //報名
+    this.data[year][month][date].guaranteed == true && event.guaranteed == true && this.data[year][month][date].status != "報名" && event.status == "報名"
     //報名 後補 預定 截止
     ) {
         this.data[year][month][date] = event;
-      } else if ( //價格便宜
-    this.data[year][month][date].status == '報名' && event.status == '報名' && this.data[year][month][date].price < event.price) {
+      } else if (
+    //價格便宜
+    this.data[year][month][date].status == "報名" && event.status == "報名" && this.data[year][month][date].price < event.price) {
       this.data[year][month][date] = event;
     } //還是本來的比較厲害
   }
@@ -5031,7 +5039,9 @@ function initLayout(withMonth) {
   var className = this.$ele[0].className;
   // builds elements in tab box
   var preBtn = $('<div class="pre btn"></div>').append($('<i class="fas fa-caret-left"></i>'));
-  var tab = $('<span class="tab"></span>').text(withMonth.get("year") + " " + (withMonth.get("month") + 1) + "月"); //把年份月份，傳進text函數，顯示出來
+  // kjb
+  var monthString = ('0' + (withMonth.get("month") + 1)).slice(-2);
+  var tab = $('<span class="tab"></span>').text(withMonth.get("year") + " " + monthString + "月"); //把年份月份，傳進text函數，顯示出來
   //把年份月份，傳進text函數，顯示出來
   var nextBtn = $('<div class="next btn"></div>').append($('<i class="fas fa-caret-right"></i>'));
   // builds tab box
@@ -5044,11 +5054,11 @@ function initLayout(withMonth) {
   var $calendars_weeksWrap = $('<div class="' + className + '_weeksWrap"></div>').append($("<span>星期日</span>")).append($("<span>星期一</span>")).append($("<span>星期二</span>")).append($("<span>星期三</span>")).append($("<span>星期四</span>")).append($("<span>星期五</span>")).append($("<span>星期六</span>"));
 
   // kjb
-  var $switchBtn = $('<div class="switchBtn"></div>').text('換').click(function () {
-    _this.$ele.toggleClass('calendars_listmode');
-    _this.$ele.toggleClass('calendars_daymode');
+  var $switchBtn = $('<div class="switchBtn"></div>').text("換").click(function () {
+    _this.$ele.toggleClass("calendars_listmode");
+    _this.$ele.toggleClass("calendars_daymode");
   });
-  this.$ele.addClass('calendars_daymode');
+  this.$ele.addClass("calendars_daymode");
 
   // builds calendar
   this.$ele.append($switchBtn);
@@ -5095,7 +5105,7 @@ function renderEvent(targetMonth) {
           _status.text(events[eventDate + 1].status);
           _group.text("團位：" + events[eventDate + 1].totalVacnacy);
           _price.text("$" + events[eventDate + 1].price);
-          _sell.text('可賣:' + events[eventDate + 1].availableVancancy);
+          _sell.text("可賣:" + events[eventDate + 1].availableVancancy);
           if (events[eventDate + 1].guaranteed) {
             // console.log(events[eventDate + 1].guaranteed);
             var $GuaranteedTripTag = $('<span class="GuaranteedTripTag"></span>').text("保證出團");
@@ -5104,26 +5114,27 @@ function renderEvent(targetMonth) {
           }
         }
         _li.click(function () {
-          $('li').removeClass('onClickDate');
-          _li.addClass('onClickDate');
+          $("li").removeClass("onClickDate");
+          _li.addClass("onClickDate");
           // kjb
           _this2.option.onClickDate(_li, events[eventDate + 1]);
           // this.option.onClickDate(this, events[eventDate + 1]);
         });
       } else {
         _li.addClass("disabled");
-      } ///一進來程式會一直執行這一段
+      } // 一進來程式會一直執行這一段
       _status.appendTo(_li);
       _group.appendTo(_li);
       _price.appendTo(_li);
       _sell.appendTo(_li);
       _date.prependTo(_li);
       _li.appendTo($calendars_daysWrap);
-    }).bind(this)(i); // kjb
-  } //print all cell and give disabled color
-  this.$ele.find('.calendars_daysWrap').remove();
+    })(i); //print all cell and give disabled color
+  }
+  this.$ele.find(".calendars_daysWrap").remove();
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent
+
 
 var Module = function () {
   function Module(ele, options) {
@@ -5132,7 +5143,6 @@ var Module = function () {
     this.ele = ele;
     this.$ele = $(ele);
     this.option = options;
-    this.currentMonth = this.option.initYearMonth;
   }
 
   _createClass(Module, [{
@@ -5158,18 +5168,79 @@ var Module = function () {
         addEvent.call(this, data[i]);
       } //for
       console.log(this.data);
-      // console.log(this.data);
-      initLayout.call(this, this.currentMonth); //從這邊接到月份 參數傳到function
-      renderEvent.call(this, this.currentMonth);
+      // kjb
+      this.yearMonth = [];
+      for (var year in this.data) {
+        for (var month in this.data[year]) {
+          // https://stackoverflow.com/questions/8043026/how-to-format-numbers-by-prepending-0-to-single-digit-numbers
+          month = ('0' + month).slice(-2);
+          var ele = {};
+          // https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Template_literals
+          ele.title = "" + year + (month + 1);
+          ele.literal = year + " " + (month + 1) + "\u6708";
+          this.yearMonth.push(ele);
+        }
+      }
+      console.log(this.yearMonth);
+      // kjb
+      for (var _i2 = 0; _i2 < this.yearMonth.length; _i2++) {
+        if (this.yearMonth[_i2].title == this.option.initYearMonth) {
+          this.currentMonth = _i2;
+          break;
+        }
+      }
+      // kjb
+      // 若輸入的年月沒有資料
+      if (!this.currentMonth) {
+        // 就要找相近的年月
+        var distance = [];
+        var initYM = (0, _moment2.default)(this.option.initYearMonth, 'YYYYMM');
+        for (var _i3 = 0; _i3 < this.yearMonth.length; _i3++) {
+          var _i = (0, _moment2.default)(this.yearMonth[_i3].title, 'YYYYMM');
+          // https://momentjs.com/docs/#/displaying/difference/
+          distance.push(_i.diff(initYM, 'month'));
+        }
+        // 就要找相近的年月
+        // https://stackoverflow.com/questions/11301438/return-index-of-greatest-value-in-an-array
+        var min = distance.indexOf(Math.min.apply(Math, distance));
+
+        // 若前一個月後一個月都有資料
+        for (var _i4 = 0; _i4 < distance.length; _i4++) {
+          if (_i4 != min && distance[_i4] == distance[min]) {
+            var year1 = (0, _moment2.default)(this.yearMonth[_i4]).get('year');
+            var month1 = (0, _moment2.default)(this.yearMonth[_i4]).get('month');
+            var year2 = (0, _moment2.default)(this.yearMonth[min]).get('year');
+            var month2 = (0, _moment2.default)(this.yearMonth[min]).get('month');
+            // 就顯示資料比數比較多的那一個月
+            if (Object.keys(this.data[year1][month1]).length > Object.keys(this.data[year2][month2]).length) {
+              min = _i4;
+            }
+            break;
+          }
+        }
+        this.currentMonth = min;
+      }
+      // kjb
+      initLayout.call(this, this.yearMonth[this.currentMonth].title); //從這邊接到月份 參數傳到function
+      // kjb
+      renderEvent.call(this, this.yearMonth[this.currentMonth].title);
       // switchMode.call(this);
+      // kjb
       this.$btnLeft.click(function () {
-        _this3.currentMonth = (0, _moment2.default)(_this3.currentMonth, 'YYYYMM').add(-1, 'M').format('YYYYMM');
-        renderEvent.call(_this3, _this3.currentMonth);
+        if (_this3.currentMonth - 1 > 0) {
+          _this3.currentMonth--;
+          renderEvent.call(_this3, _this3.yearMonth[_this3.currentMonth].title);
+          $('.tab').text(_this3.yearMonth[_this3.currentMonth].literal);
+        }
         _this3.option.onClickPrev(_this3.$btnLeft, _this3.data, _this3);
       });
+      // kjb
       this.$btnRight.click(function () {
-        _this3.currentMonth = (0, _moment2.default)(_this3.currentMonth, 'YYYYMM').add(1, 'M').format('YYYYMM');
-        renderEvent.call(_this3, _this3.currentMonth);
+        if (_this3.currentMonth + 1 < _this3.yearMonth.length) {
+          _this3.currentMonth++;
+          renderEvent.call(_this3, _this3.yearMonth[_this3.currentMonth].title);
+          $('.tab').text(_this3.yearMonth[_this3.currentMonth].literal);
+        }
         _this3.option.onClickNext(_this3.$btnRight, _this3.data, _this3);
       });
     } // first run here
@@ -5184,20 +5255,30 @@ var Module = function () {
     value: function prevMonth() {
       this.$btnLeft.click();
     }
+  }, {
+    key: "switch",
+    value: function _switch() {
+      this.$ele.toggleClass("calendars_listmode");
+      this.$ele.toggleClass("calendars_daymode");
+    }
+
     // kjb
 
   }, {
     key: "inputData",
     value: function inputData(events) {
-      for (var i = 0; i < events.lenght; i++) {
+      for (var i = 0; i < events.length; i++) {
         var e = events[i];
+        var year = (0, _moment2.default)(e.date).get('year');
+        var month = (0, _moment2.default)(e.date).get('month');
+        var date = (0, _moment2.default)(e.date).get('date');
         if (!this.data[year]) {
           this.data[year] = {};
         }
         if (!this.data[year][month]) {
           this.data[year][month] = {};
         }
-        this.data[(0, _moment2.default)(e.year)][(0, _moment2.default)(e.month)][(0, _moment2.default)(e.date)] = e;
+        this.data[year][month][date] = e;
       }
     }
     // kjb
@@ -5206,7 +5287,7 @@ var Module = function () {
     key: "resetData",
     value: function resetData(events) {
       this.inputData(events);
-      renderEvent.call(this, this.currentMonth);
+      renderEvent.call(this, this.yearMonth[this.currentMonth].title);
     }
     // kjb
 

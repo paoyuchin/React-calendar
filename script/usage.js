@@ -58,6 +58,16 @@ $('.calendars').calendar({
 
 
 
+// this.$btnRight.click(() => {
+// 	if (this.currentMonth + 1 < this.yearMonth.length) {
+// 		this.currentMonth++;
+// 		renderEvent.call(this, this.yearMonth[this.currentMonth].title);
+// 		$('.tab').text(this.yearMonth[this.currentMonth].literal);
+// 	}
+// 	this.option.onClickNext(this.$btnRight, this.data, this);
+// }); 
+
+
 
 // 下一個有資料的月份
 $('.calendars').calendar('nextMonth', function (data, module) {
@@ -69,10 +79,11 @@ $('.calendars').calendar('prevMonth', function (data, module) {
 });
 // 切換日曆或列表模式
 $('.calendars').calendar('switch');
+
 // 加資料時如果有相同日期的資料，以後輸入為主，輸入時如果輸入沒有的月份，模組會加上該月份
 $('.calendars').calendar('inputData', [{
 		"guaranteed": true, // {boolean}
-		"date": "2016/12/15", // {string} YYYY/MM/DD
+		"date": "2017/07/01", // {string} YYYY/MM/DD
 		"price": "234567", // {string|number} XXXXXX | 近期上架
 		"availableVancancy": 0, // {number}
 		"totalVacnacy": 20, // {number}

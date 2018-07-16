@@ -175,7 +175,7 @@ function renderEvent(targetMonth) {
   let $calendars_daysWrap = $('<ul class="calendars_daysWrap"></ul>');
 
   for (let i = 0; i < 42; i++) {
-    (function (i) {
+    (function (i) => {
       let _li = $li.clone();
       let _date = $date.clone();
       let _status = $status.clone();
@@ -210,17 +210,19 @@ function renderEvent(targetMonth) {
         });
       } else {
         _li.addClass("disabled");
-      } // 一進來程式會一直執行這一段
+      } ///一進來程式會一直執行這一段
       _status.appendTo(_li);
       _group.appendTo(_li);
       _price.appendTo(_li);
       _sell.appendTo(_li);
       _date.prependTo(_li);
       _li.appendTo($calendars_daysWrap);
-    })(i); //print all cell and give disabled color
-  }
+    })(i); // kjb
+  } //print all cell and give disabled color
   this.$ele.find(".calendars_daysWrap").remove();
   $calendars_daysWrap.appendTo(this.$ele);
+
+
 } //renderEvent
 
 
@@ -318,8 +320,10 @@ class Module {
     });
     // kjb
     this.$btnRight.click(() => {
+      console.log(this.yearMonth);
       if (this.currentMonth + 1 < this.yearMonth.length) {
         this.currentMonth++;
+        console.log(this.currentMonth)
         renderEvent.call(this, this.yearMonth[this.currentMonth].title);
         $('.tab').text(this.yearMonth[this.currentMonth].literal);
       }

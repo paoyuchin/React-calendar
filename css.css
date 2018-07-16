@@ -106,13 +106,17 @@ body {
 
 .calendars.calendars_listmode {
   width: 50%;
-  height: 680px;
   text-align: center;
-  border: 1px solid lightgray;
-  height: 600px; }
+  border: 1px solid lightgray; }
   .calendars.calendars_listmode li {
     position: relative;
     border-bottom: 1px solid lightgray; }
+  .calendars.calendars_listmode .GuaranteedTripTag {
+    position: absolute;
+    left: 7%;
+    top: 60%;
+    background-color: #66bb3c;
+    color: white; }
   .calendars.calendars_listmode .calendars_tabWrap {
     background-color: #ede9de;
     width: 100%; }
@@ -135,7 +139,7 @@ body {
   .calendars.calendars_listmode .calendars_weeksWrap {
     display: none; }
   .calendars.calendars_listmode .calendars_days {
-    height: 85px; }
+    height: 62px; }
     .calendars.calendars_listmode .calendars_days .date,
     .calendars.calendars_listmode .calendars_days .sell,
     .calendars.calendars_listmode .calendars_days .group {

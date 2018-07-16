@@ -175,7 +175,7 @@ function renderEvent(targetMonth) {
   let $calendars_daysWrap = $('<ul class="calendars_daysWrap"></ul>');
 
   for (let i = 0; i < 42; i++) {
-    (function (i) {
+    ((i) => {
       let _li = $li.clone();
       let _date = $date.clone();
       let _status = $status.clone();
@@ -217,8 +217,8 @@ function renderEvent(targetMonth) {
       _sell.appendTo(_li);
       _date.prependTo(_li);
       _li.appendTo($calendars_daysWrap);
-    })(i); //print all cell and give disabled color
-  }
+    })(i);
+  } //print all cell and give disabled color
   this.$ele.find(".calendars_daysWrap").remove();
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent

@@ -20,22 +20,18 @@ $txtColor: #666;
 $distableedbgc: #f8f8f8;
 $greenTagColor: #66bb3c; //active class
 //active js
-// 這個可以放這邊？yy
 .activetxtColor {
 	color: $btnColor;
 }
 
-// 這個可以放這邊？yy
 .onClickDate {
 	border: 2px solid $greenTagColor !important;
 }
 
-// 這個可以放這邊？yy
 .activeBorderColor {
 	border: 2px solid $greenTagColor;
 }
 
-// 這個可以放這邊？yy
 .switchBtn {
 	width: 50px;
 	position: absolute;
@@ -43,23 +39,6 @@ $greenTagColor: #66bb3c; //active class
 	background-color: lightgray;
 }
 
-// 示範區
-// .#{$className}.#{$className}_daymode {
-//   .#{$className}_days {
-//     background-color: black;
-//   }
-//   li {
-//     display: inline-block;
-//   }
-// }
-// .#{$className}.#{$className}_listmode {
-//   .#{$className}_days {
-//     background-color: red;
-//   }
-//   li {
-//     display: inline;
-//   }
-// }
 .#{$className}.#{$className}_daymode {
 	width: 50%;
 	height: 680px;
@@ -154,14 +133,19 @@ $greenTagColor: #66bb3c; //active class
 ////////////////////////////////////////////////////////////////////////////////
 .#{$className}.#{$className}_listmode {
 	width: 50%;
-	height: 680px;
 	text-align: center;
 	border: 1px solid lightgray;
-	height: 600px;
 	li {
 		// margin: 10px 0;
 		position: relative;
 		border-bottom: 1px solid lightgray;
+	}
+	.GuaranteedTripTag {
+		position: absolute;
+		left: 7%;
+		top: 60%;
+		background-color: $greenTagColor;
+		color: white;
 	}
 	& .#{$className}_tabWrap {
 		background-color: $btnBgC;
@@ -189,10 +173,10 @@ $greenTagColor: #66bb3c; //active class
 		}
 	}
 	& .#{$className}_weeksWrap {
-        display: none;
-    }
+		display: none;
+	}
 	.#{$className}_days {
-		height: 85px; // margin: 10px 0;
+		height: 62px; // margin: 10px 0;
 		.date,
 		.sell,
 		.group {
@@ -240,6 +224,6 @@ $greenTagColor: #66bb3c; //active class
 		}
 	}
 	.#{$className}_days.disabled {
-        display: none;
-    }
+		display: none;
+	}
 }
