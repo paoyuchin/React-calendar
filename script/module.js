@@ -154,7 +154,6 @@ function renderEvent(targetMonth) {
   let $group = $('<div class="group"></div>');
   let $price = $('<div class="price"></div>');
   let $sell = $('<div class="sell"></div>');
-  // let $GuaranteedTripTag = $('<span class="GuaranteedTripTag"></span>').text("保證出團");
   //build hasData
   let $li = $('<li class="calendars_days"></li>');
   //build calendars_daysWrap
@@ -167,7 +166,6 @@ function renderEvent(targetMonth) {
       let _group = $group.clone();
       let _price = $price.clone();
       let _sell = $sell.clone();
-      // let _GuaranteedTripTag = $GuaranteedTripTag.clone();zz
       let eventDate = i - firstWeekDay;
       if (i >= firstWeekDay && i <= monthlyDays + firstWeekDay - 1) {
         //直到需要加日期那一天
@@ -177,8 +175,20 @@ function renderEvent(targetMonth) {
           _status.text(events[eventDate + 1].status);
           _group.text("團位：" + events[eventDate + 1].totalVacnacy);
           _price.text("$" + events[eventDate + 1].price);
+          if (events[eventDate + 1].guaranteed) {
+            // console.log(events[eventDate + 1].guaranteed);
+            let $GuaranteedTripTag = $('<span class="GuaranteedTripTag"></span>').text("保證出團");
+            let _GuaranteedTripTag = $GuaranteedTripTag.clone();
+            _GuaranteedTripTag.appendTo(_li)
+          }
         }
-        // $calendars_daysWrap.append(_li);
+        _li.click(function () {
+          $('li').removeClass('onClickDate')
+          _li.addClass('onClickDate')
+          console.log(events[eventDate + 1]);
+          console.log(this)
+          // this.option.onClickDate(this, events[eventDate + 1]);
+        });
       } else {
         _li.addClass("disabled");
       } ///一進來程式會一直執行這一段
@@ -186,17 +196,15 @@ function renderEvent(targetMonth) {
       _group.appendTo(_li);
       _price.appendTo(_li);
       _sell.appendTo(_li);
-      // _GuaranteedTripTag.appendTo(_li);
       _date.prependTo(_li);
       _li.appendTo($calendars_daysWrap);
     })(i);
-
   } //print all cell and give disabled color
   this.$ele.find('.calendars_daysWrap').remove();
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent
 
-//btn
+
 
 class Module {
   constructor(ele, options) {
@@ -206,19 +214,16 @@ class Module {
     this.currentMonth = this.option.initYearMonth;
   }
   init() {
-    $.ajax({
-      type: 'GET',
-      headers: {
-        'Access-Control-Allow-Origin': 'http://140.115.236.72'
-      },
-      url: 'http://140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json',
-      dataType: 'jsonp',
-      success: function (data) {
-        console.log('hi')
-      }
-    }).error(function (data) {
-      console.log(data)
-    });
+    // $.ajax({
+    //   type: 'GET',
+    //   url: 'http://140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json',
+    //   crossDomain: true,
+    //   success: function (data) {
+    //     console.log('hi')
+    //   }
+    // }).error(function (data) {
+    //   console.log(data)
+    // });
 
     const data = require("../json/data1.json");
     let dataLength = data.length;
@@ -226,18 +231,23 @@ class Module {
     for (var i = 0; i < dataLength; i++) {
       addEvent.call(this, data[i]);
     } //for
-    console.log(this.data);
+    // console.log(this.data);
     initLayout.call(this, this.currentMonth); //從這邊接到月份 參數傳到function
     renderEvent.call(this, this.currentMonth);
+
     this.$btnLeft.click(() => {
       this.currentMonth = moment(this.currentMonth, 'YYYYMM').add(-1, 'M').format('YYYYMM');
       renderEvent.call(this, this.currentMonth);
+      let a = this;
+      this.option.onClickPrev(this.$btnLeft, this.data, this);
     });
     this.$btnRight.click(() => {
       this.currentMonth = moment(this.currentMonth, 'YYYYMM').add(1, 'M').format('YYYYMM');
       renderEvent.call(this, this.currentMonth);
+      let a = this;
+      this.option.onClickPrev(this.$btnRight, this.data, this);
     });
-  } // first run here
+  } // first run here 
 
   methods() {
     return this;

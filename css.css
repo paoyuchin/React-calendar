@@ -14,6 +14,9 @@ body {
 .activetxtColor {
   color: #e10500; }
 
+.onClickDate {
+  border: 2px solid #66bb3c !important; }
+
 .activeBorderColor {
   border: 2px solid #66bb3c; }
 

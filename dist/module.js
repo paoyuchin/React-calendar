@@ -5062,7 +5062,6 @@ function renderEvent(targetMonth) {
   var $group = $('<div class="group"></div>');
   var $price = $('<div class="price"></div>');
   var $sell = $('<div class="sell"></div>');
-  // let $GuaranteedTripTag = $('<span class="GuaranteedTripTag"></span>').text("保證出團");
   //build hasData
   var $li = $('<li class="calendars_days"></li>');
   //build calendars_daysWrap
@@ -5075,7 +5074,6 @@ function renderEvent(targetMonth) {
       var _group = $group.clone();
       var _price = $price.clone();
       var _sell = $sell.clone();
-      // let _GuaranteedTripTag = $GuaranteedTripTag.clone();zz
       var eventDate = i - firstWeekDay;
       if (i >= firstWeekDay && i <= monthlyDays + firstWeekDay - 1) {
         //直到需要加日期那一天
@@ -5085,8 +5083,20 @@ function renderEvent(targetMonth) {
           _status.text(events[eventDate + 1].status);
           _group.text("團位：" + events[eventDate + 1].totalVacnacy);
           _price.text("$" + events[eventDate + 1].price);
+          if (events[eventDate + 1].guaranteed) {
+            // console.log(events[eventDate + 1].guaranteed);
+            var $GuaranteedTripTag = $('<span class="GuaranteedTripTag"></span>').text("保證出團");
+            var _GuaranteedTripTag = $GuaranteedTripTag.clone();
+            _GuaranteedTripTag.appendTo(_li);
+          }
         }
-        // $calendars_daysWrap.append(_li);
+        _li.click(function () {
+          $('li').removeClass('onClickDate');
+          _li.addClass('onClickDate');
+          console.log(events[eventDate + 1]);
+          console.log(this);
+          // this.option.onClickDate(this, events[eventDate + 1]);
+        });
       } else {
         _li.addClass("disabled");
       } ///一進來程式會一直執行這一段
@@ -5094,7 +5104,6 @@ function renderEvent(targetMonth) {
       _group.appendTo(_li);
       _price.appendTo(_li);
       _sell.appendTo(_li);
-      // _GuaranteedTripTag.appendTo(_li);
       _date.prependTo(_li);
       _li.appendTo($calendars_daysWrap);
     })(i);
@@ -5103,7 +5112,6 @@ function renderEvent(targetMonth) {
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent
 
-//btn
 
 var Module = function () {
   function Module(ele, options) {
@@ -5120,19 +5128,16 @@ var Module = function () {
     value: function init() {
       var _this = this;
 
-      $.ajax({
-        type: 'GET',
-        headers: {
-          'Access-Control-Allow-Origin': 'http://140.115.236.72'
-        },
-        url: 'http://140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json',
-        dataType: 'jsonp',
-        success: function success(data) {
-          console.log('hi');
-        }
-      }).error(function (data) {
-        console.log(data);
-      });
+      // $.ajax({
+      //   type: 'GET',
+      //   url: 'http://140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json',
+      //   crossDomain: true,
+      //   success: function (data) {
+      //     console.log('hi')
+      //   }
+      // }).error(function (data) {
+      //   console.log(data)
+      // });
 
       var data = __webpack_require__(111);
       var dataLength = data.length;
@@ -5140,18 +5145,23 @@ var Module = function () {
       for (var i = 0; i < dataLength; i++) {
         addEvent.call(this, data[i]);
       } //for
-      console.log(this.data);
+      // console.log(this.data);
       initLayout.call(this, this.currentMonth); //從這邊接到月份 參數傳到function
       renderEvent.call(this, this.currentMonth);
+
       this.$btnLeft.click(function () {
         _this.currentMonth = (0, _moment2.default)(_this.currentMonth, 'YYYYMM').add(-1, 'M').format('YYYYMM');
         renderEvent.call(_this, _this.currentMonth);
+        var a = _this;
+        _this.option.onClickPrev(_this.$btnLeft, _this.data, _this);
       });
       this.$btnRight.click(function () {
         _this.currentMonth = (0, _moment2.default)(_this.currentMonth, 'YYYYMM').add(1, 'M').format('YYYYMM');
         renderEvent.call(_this, _this.currentMonth);
+        var a = _this;
+        _this.option.onClickPrev(_this.$btnRight, _this.data, _this);
       });
-    } // first run here
+    } // first run here 
 
   }, {
     key: "methods",

@@ -21,6 +21,10 @@ $greenTagColor:#66bb3c; //active class
 	color: $btnColor;
 }
 
+.onClickDate {
+	border: 2px solid $greenTagColor !important;
+}
+
 .activeBorderColor {
 	border: 2px solid $greenTagColor;
 } //
