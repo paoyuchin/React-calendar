@@ -1,0 +1,81 @@
+<!-- // 可加上這兩個修飾符來切換日曆模式或列表模式 calendars_daymode,calendars_listmode -->
+	<!-- <div class="calendars_tabWrap">
+		<div class="tabBox">
+			<div class="pre btn">
+				<i class="fas fa-caret-left"></i>
+			</div>
+			<span class="tab">
+				2017 7月
+			</span>
+			<span class="tab">
+				2017 8月
+			</span>
+			<span class="tab">
+				2017 9月
+			</span>
+			<div class="next btn">
+				<i class="fas fa-caret-right"></i>
+			</div>
+		</div>
+	</div> -->
+	<!-- <div class="calendars_weeksWrap calendars_listMode">
+		<span>星期日</span>
+		<span>星期一</span>
+		<span>星期二</span>
+		<span>星期三</span>
+		<span>星期四</span>
+		<span>星期五</span>
+		<span>星期六</span>
+	</div> -->
+	<!-- <ul class="calendars_daysWrap calendars_listMode">
+		<li class="calendars_days disabled"></li>
+		<! <li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li> -->
+
+	<!-- <li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+///////////
+			<div class="status">候補</div>			
+			<div class="price">$4,999</div>
+		</li>
+///////////
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+		<li class="calendars_days hasData">
+			<div class="date">1</div>
+			<div class="status">候補</div>
+			<div class="sell">可賣：0</div>
+			<div class="group">團位：0</div>
+			<div class="price">$4,999</div>
+		</li>
+	</ul>   -->
+	<!-- ////////list Mode -->
+	<!-- <div class="listMode clearfix">
+		<div class="list_1">
+			<div class="dayNum">
+				<div>3</div>
+				<div class="whichDays">星期五</div>
+			</div>
+			<div class="detail">
+				<span class="forSell">可賣</span>
+				<span class="團位">19</span>
+				<div class="guranteed">保證出團</div>
+			</div>
+		</div>
+		<div class="list_2">
+			<div>候補</div>
+			<div class="price">$15400</div>
+		</div>
+	</div> -->

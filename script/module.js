@@ -62,7 +62,7 @@ function addEvent(event) {
     this.data[year] = {};
   }
   if (!this.data[year][month]) {
-    this.data[year][month] = [];
+    this.data[year][month] = {};
   }
   if (!this.data[year][month][date]) {
     // empty
@@ -92,11 +92,6 @@ function addEvent(event) {
   }
 }
 
-function getEvents(yearMonth) {
-  let ym = moment(yearMonth, "YYYYMM");
-  return this.data[ym.get("year")][ym.get("month")];
-}
-
 function initLayout(withMonth) {
   withMonth = moment(withMonth, "YYYYMM"); //把傳進來的參數變成moment物件
   let className = this.$ele[0].className;
@@ -107,10 +102,10 @@ function initLayout(withMonth) {
   let tab = $('<span class="tab"></span>').text(
     withMonth.get("year") + " " + (withMonth.get("month") + 1) + "月"
   ); //把年份月份，傳進text函數，顯示出來
+  //把年份月份，傳進text函數，顯示出來
   let nextBtn = $('<div class="next btn"></div>').append(
     $('<i class="fas fa-caret-right"></i>')
   );
-
   // builds tab box
   let $tabBox = $('<div class="tabBox"></div>')
     .append(preBtn)
@@ -134,7 +129,17 @@ function initLayout(withMonth) {
     .append($("<span>星期五</span>"))
     .append($("<span>星期六</span>"));
 
+  // kjb
+  let $switchBtn = $('<div class="switchBtn"></div>')
+    .text('換')
+    .click(() => {
+      this.$ele.toggleClass('calendars_listmode');
+      this.$ele.toggleClass('calendars_daymode');
+    });
+  this.$ele.addClass('calendars_daymode');
+
   // builds calendar
+  this.$ele.append($switchBtn);
   this.$ele.append($calendars_tabWrap);
   this.$ele.append($calendars_weeksWrap);
   this.$btnLeft = $(".pre");
@@ -158,6 +163,7 @@ function renderEvent(targetMonth) {
   let $li = $('<li class="calendars_days"></li>');
   //build calendars_daysWrap
   let $calendars_daysWrap = $('<ul class="calendars_daysWrap"></ul>');
+
   for (let i = 0; i < 42; i++) {
     (function (i) {
       let _li = $li.clone();
@@ -175,6 +181,7 @@ function renderEvent(targetMonth) {
           _status.text(events[eventDate + 1].status);
           _group.text("團位：" + events[eventDate + 1].totalVacnacy);
           _price.text("$" + events[eventDate + 1].price);
+          _sell.text('可賣:' + events[eventDate + 1].availableVancancy);
           if (events[eventDate + 1].guaranteed) {
             // console.log(events[eventDate + 1].guaranteed);
             let $GuaranteedTripTag = $('<span class="GuaranteedTripTag"></span>').text("保證出團");
@@ -182,11 +189,11 @@ function renderEvent(targetMonth) {
             _GuaranteedTripTag.appendTo(_li)
           }
         }
-        _li.click(function () {
-          $('li').removeClass('onClickDate')
-          _li.addClass('onClickDate')
-          console.log(events[eventDate + 1]);
-          console.log(this)
+        _li.click(() => {
+          $('li').removeClass('onClickDate');
+          _li.addClass('onClickDate');
+          // kjb
+          this.option.onClickDate(_li, events[eventDate + 1]);
           // this.option.onClickDate(this, events[eventDate + 1]);
         });
       } else {
@@ -198,13 +205,11 @@ function renderEvent(targetMonth) {
       _sell.appendTo(_li);
       _date.prependTo(_li);
       _li.appendTo($calendars_daysWrap);
-    })(i);
+    }.bind(this))(i); // kjb
   } //print all cell and give disabled color
   this.$ele.find('.calendars_daysWrap').remove();
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent
-
-
 
 class Module {
   constructor(ele, options) {
@@ -224,36 +229,60 @@ class Module {
     // }).error(function (data) {
     //   console.log(data)
     // });
-
     const data = require("../json/data1.json");
     let dataLength = data.length;
     this.data = {};
-    for (var i = 0; i < dataLength; i++) {
+    this.month = [];
+    for (let i = 0; i < dataLength; i++) {
       addEvent.call(this, data[i]);
     } //for
+    console.log(this.data);
     // console.log(this.data);
     initLayout.call(this, this.currentMonth); //從這邊接到月份 參數傳到function
     renderEvent.call(this, this.currentMonth);
-
+    // switchMode.call(this);
     this.$btnLeft.click(() => {
       this.currentMonth = moment(this.currentMonth, 'YYYYMM').add(-1, 'M').format('YYYYMM');
       renderEvent.call(this, this.currentMonth);
-      let a = this;
       this.option.onClickPrev(this.$btnLeft, this.data, this);
     });
     this.$btnRight.click(() => {
       this.currentMonth = moment(this.currentMonth, 'YYYYMM').add(1, 'M').format('YYYYMM');
       renderEvent.call(this, this.currentMonth);
-      let a = this;
-      this.option.onClickPrev(this.$btnRight, this.data, this);
+      this.option.onClickNext(this.$btnRight, this.data, this);
     });
-  } // first run here 
 
-  methods() {
-    return this;
+  } // first run here
+  nextMonth() {
+    this.$btnRight.click();
   }
-}
+  prevMonth() {
+    this.$btnLeft.click();
+  }
+  // kjb
+  inputData(events) {
+    for (let i = 0; i < events.lenght; i++) {
+      let e = events[i];
+      if (!this.data[year]) {
+        this.data[year] = {};
+      }
+      if (!this.data[year][month]) {
+        this.data[year][month] = {};
+      }
+      this.data[moment(e.year)][moment(e.month)][moment(e.date)] = e;
+    }
+  }
+  // kjb
+  resetData(events) {
+    this.inputData(events);
+    renderEvent.call(this, this.currentMonth);
+  }
+  // kjb
+  destroy() {
+    this.$ele.remove();
+  }
 
+}
 export {
   ModuleName,
   ModuleDefaults,

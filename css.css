@@ -9,7 +9,7 @@
   list-style-type: none; }
 
 body {
-  height: 10000px; }
+  height: 1000px; }
 
 .activetxtColor {
   color: #e10500; }
@@ -20,9 +20,15 @@ body {
 .activeBorderColor {
   border: 2px solid #66bb3c; }
 
+.switchBtn {
+  width: 50px;
+  position: absolute;
+  left: 50%;
+  background-color: lightgray; }
+
 .calendars {
   width: 50%;
-  height: 615px;
+  height: 680px;
   text-align: center;
   border: 1px solid lightgray; }
   .calendars .calendars_tabWrap {
@@ -59,7 +65,7 @@ body {
       background-color: #f8f8f8; }
     .calendars .calendars_daysWrap .calendars_days,
     .calendars .calendars_daysWrap .hasData {
-      height: 89px;
+      height: 100px;
       padding: 3px;
       width: 14.2%;
       border-top: 1px solid lightgray;
@@ -97,3 +103,52 @@ body {
       .calendars .calendars_daysWrap .hasData .price {
         color: #e10500;
         font-weight: 800; }
+  .calendars .calendars_listMode {
+    height: 600px; }
+    .calendars .calendars_listMode .calendars_weeksWrap {
+      display: none; }
+    .calendars .calendars_listMode li {
+      position: relative;
+      border-bottom: 1px solid lightgray; }
+    .calendars .calendars_listMode .disabled {
+      display: none; }
+    .calendars .calendars_listMode .calendars_days {
+      height: 85px; }
+      .calendars .calendars_listMode .calendars_days .date,
+      .calendars .calendars_listMode .calendars_days .sell,
+      .calendars .calendars_listMode .calendars_days .group {
+        width: 50%;
+        float: left;
+        text-align: left;
+        font-size: 16px;
+        color: #666; }
+      .calendars .calendars_listMode .calendars_days .status,
+      .calendars .calendars_listMode .calendars_days .price {
+        text-align: right;
+        float: left;
+        width: 50%;
+        font-size: 16px;
+        padding-right: 10px; }
+      .calendars .calendars_listMode .calendars_days .group {
+        position: absolute;
+        display: inline-block;
+        left: 18%;
+        font-weight: bold;
+        padding-top: 11px; }
+      .calendars .calendars_listMode .calendars_days .sell {
+        font-weight: bold;
+        position: absolute;
+        display: inline-block;
+        left: 7%;
+        padding-top: 11px; }
+      .calendars .calendars_listMode .calendars_days .price {
+        position: absolute;
+        right: 0%;
+        bottom: 28%;
+        color: #e10500; }
+      .calendars .calendars_listMode .calendars_days .date {
+        font-size: 30px;
+        padding-left: 15px;
+        padding-top: 11px; }
+      .calendars .calendars_listMode .calendars_days .status {
+        color: #24a07c; }

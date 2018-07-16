@@ -1,0 +1,181 @@
+* {
+	box-sizing: border-box;
+	outline: 1px solid red;
+	text-align: center;
+	border-spacing: 0;
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	list-style-type: none;
+}
+
+body {
+	height: 1000px;
+}
+
+//Define class
+$className: calendars;
+$btnColor:#e10500;
+$btnBgC:rgb(237, 233, 222);
+$txtColor:#666;
+$distableedbgc:#f8f8f8;
+$greenTagColor:#66bb3c; //active class
+//active js
+.activetxtColor {
+	color: $btnColor;
+}
+
+.onClickDate {
+	border: 2px solid $greenTagColor !important;
+}
+
+.activeBorderColor {
+	border: 2px solid $greenTagColor;
+}
+
+.switchBtn {
+	width: 200px;
+	position: relative;
+	right: 0;
+}
+
+// list Mode
+.listMode {
+	background-color: white;
+	width: 100%;
+	.list_1 {
+		width: 50%;
+		float: left;
+		.dayNum {
+			float: left;
+			width: 20%;
+			font-size: 20px;
+			span {
+				display: inline-block;
+			}
+		}
+		.detail {
+			width: 80%;
+			float: left;
+			text-align: left;
+			.forSell {
+				font-size: 16px;
+				margin-right: 20px;
+			}
+			span {
+				text-align: left;
+			}
+			.guranteed {
+				text-align: left;
+				padding-top: 11px;
+				padding-left: 10px;
+				font-size: 16px;
+			}
+		}
+	}
+	.list_2 {
+		width: 50%;
+		float: left;
+		text-align: right;
+		div {
+			text-align: right;
+			font-size: 20px;
+		}
+		& div:first-child {
+			color: green;
+		}
+		.price {
+			color: red;
+		}
+	}
+}
+
+.#{$className} {
+	width: 50%;
+	height: 615px;
+	text-align: center;
+	border: 1px solid lightgray;
+	& .#{$className}_tabWrap {
+		background-color: $btnBgC;
+		width: 100%;
+		.tabBox {
+			height: 50px;
+			width: 100%;
+			div,
+			span {
+				display: inline-block;
+			}
+		}
+		.btn {
+			font-size: 20px;
+			width: 3%;
+			i {
+				color: $btnColor;
+			}
+		}
+		.tab {
+			color: $txtColor;
+			font-size: 17px;
+			width: 30%;
+			padding-bottom: 15px;
+		}
+	}
+	& .#{$className}_weeksWrap {
+		width: 100%;
+		color: $txtColor;
+		font-weight: 800;
+		span {
+			display: inline-block;
+			width: 14.2%;
+			margin-left: -4px;
+			font-size: 16px;
+		}
+	}
+	& .#{$className}_daysWrap {
+		width: 100%;
+		.disabled {
+			background-color: #f8f8f8;
+		}
+		.calendars_days,
+		.hasData {
+			height: 89px;
+			padding: 3px;
+			width: 14.2%;
+			border-top: 1px solid lightgray;
+			display: inline-block; // outline  : 1px solid gray;
+			border-left: 1px solid lightgray;
+			float: left;
+			font-size: 12px;
+			position: relative;
+			.GuaranteedTripTag {
+				position: absolute;
+				right: 0;
+				top: 0;
+				background-color: $greenTagColor;
+				color: white;
+			}
+			div {
+				text-align: left;
+			}
+			span {
+				display: inline-block;
+			}
+			.status {
+				color: #24a07c;
+			}
+			.status_orange {
+				color: orange;
+			}
+			.sell {
+				color: #666;
+			}
+			.group {
+				color: #666;
+			}
+			.price {
+				color: $btnColor;
+				font-weight: 800;
+			}
+		}
+	}
+} //end

@@ -24,6 +24,10 @@ $.fn[ModuleName] = function () {
         if (module) {
             if (typeof method === 'string' && !uesReturn) {
                 module[method].apply(module, options);
+                // kjb
+                if (method === 'destroy') {
+                    module = undefined;
+                }
             } else if (typeof method === 'string' && !!uesReturn) {
                 return module[method].apply(module, options);
             } else {
