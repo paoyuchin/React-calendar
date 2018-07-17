@@ -26,45 +26,45 @@ body {
   left: 50%;
   background-color: lightgray; }
 
-.calendars.calendars_daymode {
+.calendar.calendar_daymode {
   width: 50%;
   height: 680px;
   text-align: center;
   border: 1px solid lightgray; }
-  .calendars.calendars_daymode .calendars_tabWrap {
+  .calendar.calendar_daymode .calendar_tabWrap {
     background-color: #ede9de;
     width: 100%; }
-    .calendars.calendars_daymode .calendars_tabWrap .tabBox {
+    .calendar.calendar_daymode .calendar_tabWrap .tabBox {
       height: 50px;
       width: 100%; }
-      .calendars.calendars_daymode .calendars_tabWrap .tabBox div,
-      .calendars.calendars_daymode .calendars_tabWrap .tabBox span {
+      .calendar.calendar_daymode .calendar_tabWrap .tabBox div,
+      .calendar.calendar_daymode .calendar_tabWrap .tabBox span {
         display: inline-block; }
-    .calendars.calendars_daymode .calendars_tabWrap .btn {
+    .calendar.calendar_daymode .calendar_tabWrap .btn {
       font-size: 20px;
       width: 3%; }
-      .calendars.calendars_daymode .calendars_tabWrap .btn i {
+      .calendar.calendar_daymode .calendar_tabWrap .btn i {
         color: #e10500; }
-    .calendars.calendars_daymode .calendars_tabWrap .tab {
+    .calendar.calendar_daymode .calendar_tabWrap .tab {
       color: #666;
       font-size: 17px;
       width: 30%;
       padding-bottom: 15px; }
-  .calendars.calendars_daymode .calendars_weeksWrap {
+  .calendar.calendar_daymode .calendar_weeksWrap {
     width: 100%;
     color: #666;
     font-weight: 800; }
-    .calendars.calendars_daymode .calendars_weeksWrap span {
+    .calendar.calendar_daymode .calendar_weeksWrap span {
       display: inline-block;
       width: 14.2%;
       margin-left: -4px;
       font-size: 16px; }
-  .calendars.calendars_daymode .calendars_daysWrap {
+  .calendar.calendar_daymode .calendar_daysWrap {
     width: 100%; }
-    .calendars.calendars_daymode .calendars_daysWrap .disabled {
+    .calendar.calendar_daymode .calendar_daysWrap .disabled {
       background-color: #f8f8f8; }
-    .calendars.calendars_daymode .calendars_daysWrap .calendars_days,
-    .calendars.calendars_daymode .calendars_daysWrap .hasData {
+    .calendar.calendar_daymode .calendar_daysWrap .calendar_days,
+    .calendar.calendar_daymode .calendar_daysWrap .hasData {
       height: 100px;
       padding: 3px;
       width: 14.2%;
@@ -74,109 +74,109 @@ body {
       float: left;
       font-size: 12px;
       position: relative; }
-      .calendars.calendars_daymode .calendars_daysWrap .calendars_days .GuaranteedTripTag,
-      .calendars.calendars_daymode .calendars_daysWrap .hasData .GuaranteedTripTag {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .GuaranteedTripTag,
+      .calendar.calendar_daymode .calendar_daysWrap .hasData .GuaranteedTripTag {
         position: absolute;
         right: 0;
         top: 0;
         background-color: #66bb3c;
         color: white; }
-      .calendars.calendars_daymode .calendars_daysWrap .calendars_days div,
-      .calendars.calendars_daymode .calendars_daysWrap .hasData div {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days div,
+      .calendar.calendar_daymode .calendar_daysWrap .hasData div {
         text-align: left; }
-      .calendars.calendars_daymode .calendars_daysWrap .calendars_days span,
-      .calendars.calendars_daymode .calendars_daysWrap .hasData span {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days span,
+      .calendar.calendar_daymode .calendar_daysWrap .hasData span {
         display: inline-block; }
-      .calendars.calendars_daymode .calendars_daysWrap .calendars_days .status,
-      .calendars.calendars_daymode .calendars_daysWrap .hasData .status {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .status,
+      .calendar.calendar_daymode .calendar_daysWrap .hasData .status {
         color: #24a07c; }
-      .calendars.calendars_daymode .calendars_daysWrap .calendars_days .status_orange,
-      .calendars.calendars_daymode .calendars_daysWrap .hasData .status_orange {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .status_orange,
+      .calendar.calendar_daymode .calendar_daysWrap .hasData .status_orange {
         color: orange; }
-      .calendars.calendars_daymode .calendars_daysWrap .calendars_days .sell,
-      .calendars.calendars_daymode .calendars_daysWrap .hasData .sell {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .sell,
+      .calendar.calendar_daymode .calendar_daysWrap .hasData .sell {
         color: #666; }
-      .calendars.calendars_daymode .calendars_daysWrap .calendars_days .group,
-      .calendars.calendars_daymode .calendars_daysWrap .hasData .group {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .group,
+      .calendar.calendar_daymode .calendar_daysWrap .hasData .group {
         color: #666; }
-      .calendars.calendars_daymode .calendars_daysWrap .calendars_days .price,
-      .calendars.calendars_daymode .calendars_daysWrap .hasData .price {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .price,
+      .calendar.calendar_daymode .calendar_daysWrap .hasData .price {
         color: #e10500;
         font-weight: 800; }
 
-.calendars.calendars_listmode {
+.calendar.calendar_listmode {
   width: 50%;
   text-align: center;
   border: 1px solid lightgray; }
-  .calendars.calendars_listmode li {
+  .calendar.calendar_listmode li {
     position: relative;
     border-bottom: 1px solid lightgray; }
-  .calendars.calendars_listmode .GuaranteedTripTag {
+  .calendar.calendar_listmode .GuaranteedTripTag {
     position: absolute;
     left: 7%;
     top: 60%;
     background-color: #66bb3c;
     color: white; }
-  .calendars.calendars_listmode .calendars_tabWrap {
+  .calendar.calendar_listmode .calendar_tabWrap {
     background-color: #ede9de;
     width: 100%; }
-    .calendars.calendars_listmode .calendars_tabWrap .tabBox {
+    .calendar.calendar_listmode .calendar_tabWrap .tabBox {
       height: 50px;
       width: 100%; }
-      .calendars.calendars_listmode .calendars_tabWrap .tabBox div,
-      .calendars.calendars_listmode .calendars_tabWrap .tabBox span {
+      .calendar.calendar_listmode .calendar_tabWrap .tabBox div,
+      .calendar.calendar_listmode .calendar_tabWrap .tabBox span {
         display: inline-block; }
-    .calendars.calendars_listmode .calendars_tabWrap .btn {
+    .calendar.calendar_listmode .calendar_tabWrap .btn {
       font-size: 20px;
       width: 3%; }
-      .calendars.calendars_listmode .calendars_tabWrap .btn i {
+      .calendar.calendar_listmode .calendar_tabWrap .btn i {
         color: #e10500; }
-    .calendars.calendars_listmode .calendars_tabWrap .tab {
+    .calendar.calendar_listmode .calendar_tabWrap .tab {
       color: #666;
       font-size: 17px;
       width: 30%;
       padding-bottom: 15px; }
-  .calendars.calendars_listmode .calendars_weeksWrap {
+  .calendar.calendar_listmode .calendar_weeksWrap {
     display: none; }
-  .calendars.calendars_listmode .calendars_days {
+  .calendar.calendar_listmode .calendar_days {
     height: 62px; }
-    .calendars.calendars_listmode .calendars_days .date,
-    .calendars.calendars_listmode .calendars_days .sell,
-    .calendars.calendars_listmode .calendars_days .group {
+    .calendar.calendar_listmode .calendar_days .date,
+    .calendar.calendar_listmode .calendar_days .sell,
+    .calendar.calendar_listmode .calendar_days .group {
       width: 50%;
       float: left;
       text-align: left;
       font-size: 16px;
       color: #666; }
-    .calendars.calendars_listmode .calendars_days .status,
-    .calendars.calendars_listmode .calendars_days .price {
+    .calendar.calendar_listmode .calendar_days .status,
+    .calendar.calendar_listmode .calendar_days .price {
       text-align: right;
       float: left;
       width: 50%;
       font-size: 16px;
       padding-right: 10px; }
-    .calendars.calendars_listmode .calendars_days .group {
+    .calendar.calendar_listmode .calendar_days .group {
       position: absolute;
       display: inline-block;
       left: 18%;
       font-weight: bold;
       padding-top: 11px; }
-    .calendars.calendars_listmode .calendars_days .sell {
+    .calendar.calendar_listmode .calendar_days .sell {
       font-weight: bold;
       position: absolute;
       display: inline-block;
       left: 7%;
       padding-top: 11px; }
-    .calendars.calendars_listmode .calendars_days .price {
+    .calendar.calendar_listmode .calendar_days .price {
       position: absolute;
       right: 0%;
       bottom: 28%;
       color: #e10500; }
-    .calendars.calendars_listmode .calendars_days .date {
+    .calendar.calendar_listmode .calendar_days .date {
       font-size: 30px;
       padding-left: 15px;
       padding-top: 11px; }
-    .calendars.calendars_listmode .calendars_days .status {
+    .calendar.calendar_listmode .calendar_days .status {
       color: #24a07c; }
-  .calendars.calendars_listmode .calendars_days.disabled {
+  .calendar.calendar_listmode .calendar_days.disabled {
     display: none; }

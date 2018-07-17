@@ -4944,6 +4944,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //Define module name here
 var ModuleName = "calendar";
 
+// $.ajax({
+//   method: 'GET',
+//   url: 'http: //140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json'
+// }).done(function (data) {
+//   console.log(data);
+// });
+
+// $.ajax({
+//   type: 'GET',
+//   url: 'http://140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json',
+//   crossDomain: true,
+//   success: function (data) {
+//     console.log('hi')
+//   }
+// }).error(function (data) {
+//   console.log(data)
+// });
+
+
 //Props default value write here
 var ModuleDefaults = {
   dataSource: [
@@ -4994,11 +5013,11 @@ var ModuleDefaults = {
 var ModuleReturns = [];
 
 function addEvent(event) {
-  // kjb
   if (!event.guaranteed) {
     // preprocess
     event.guaranteed = event.certain;
   }
+  console.log(event);
   var date = (0, _moment2.default)(event.date);
   var year = date.get("year");
   var month = date.get("month");
@@ -5036,7 +5055,6 @@ function initLayout(withMonth) {
   var _this = this;
 
   withMonth = (0, _moment2.default)(withMonth, "YYYYMM"); //把傳進來的參數變成moment物件
-  var className = this.$ele[0].className;
   // builds elements in tab box
   var preBtn = $('<div class="pre btn"></div>').append($('<i class="fas fa-caret-left"></i>'));
   // kjb
@@ -5048,17 +5066,17 @@ function initLayout(withMonth) {
   var $tabBox = $('<div class="tabBox"></div>').append(preBtn).append(tab).append(nextBtn);
 
   // builds tab wrap
-  var $calendars_tabWrap = $('<div class="' + className + '_tabWrap"></div>').append($tabBox);
+  var $calendars_tabWrap = $('<div class="' + this.className + '_tabWrap"></div>').append($tabBox);
 
   // builds weekswrap
-  var $calendars_weeksWrap = $('<div class="' + className + '_weeksWrap"></div>').append($("<span>星期日</span>")).append($("<span>星期一</span>")).append($("<span>星期二</span>")).append($("<span>星期三</span>")).append($("<span>星期四</span>")).append($("<span>星期五</span>")).append($("<span>星期六</span>"));
+  var $calendars_weeksWrap = $('<div class="' + this.className + '_weeksWrap"></div>').append($("<span>星期日</span>")).append($("<span>星期一</span>")).append($("<span>星期二</span>")).append($("<span>星期三</span>")).append($("<span>星期四</span>")).append($("<span>星期五</span>")).append($("<span>星期六</span>"));
 
   // kjb
   var $switchBtn = $('<div class="switchBtn"></div>').text("換").click(function () {
-    _this.$ele.toggleClass("calendars_listmode");
-    _this.$ele.toggleClass("calendars_daymode");
+    _this.$ele.toggleClass(_this.className + "_listmode");
+    _this.$ele.toggleClass(_this.className + "_daymode");
   });
-  this.$ele.addClass("calendars_daymode");
+  this.$ele.addClass(this.className + "_daymode");
 
   // builds calendar
   this.$ele.append($switchBtn);
@@ -5069,6 +5087,8 @@ function initLayout(withMonth) {
 }
 
 function renderEvent(targetMonth) {
+  var _this2 = this;
+
   targetMonth = (0, _moment2.default)(targetMonth, "YYYYMM");
   var events = this.data[targetMonth.get("year")][targetMonth.get("month")];
   var monthlyDays = targetMonth.daysInMonth();
@@ -5082,14 +5102,12 @@ function renderEvent(targetMonth) {
   var $price = $('<div class="price"></div>');
   var $sell = $('<div class="sell"></div>');
   //build hasData
-  var $li = $('<li class="calendars_days"></li>');
+  var $li = $('<li class="' + this.className + '_days"></li>');
   //build calendars_daysWrap
-  var $calendars_daysWrap = $('<ul class="calendars_daysWrap"></ul>');
+  var $calendars_daysWrap = $('<ul class="' + this.className + '_daysWrap"></ul>');
 
   for (var i = 0; i < 42; i++) {
     (function (i) {
-      var _this2 = this;
-
       var _li = $li.clone();
       var _date = $date.clone();
       var _status = $status.clone();
@@ -5131,7 +5149,7 @@ function renderEvent(targetMonth) {
       _li.appendTo($calendars_daysWrap);
     })(i); //print all cell and give disabled color
   }
-  this.$ele.find(".calendars_daysWrap").remove();
+  this.$ele.find('.' + this.className + "_daysWrap").remove();
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent
 
@@ -5143,6 +5161,7 @@ var Module = function () {
     this.ele = ele;
     this.$ele = $(ele);
     this.option = options;
+    this.className = this.$ele[0].className;
   }
 
   _createClass(Module, [{
@@ -5173,11 +5192,11 @@ var Module = function () {
       for (var year in this.data) {
         for (var month in this.data[year]) {
           // https://stackoverflow.com/questions/8043026/how-to-format-numbers-by-prepending-0-to-single-digit-numbers
-          month = ('0' + month).slice(-2);
+          month = ('0' + (parseInt(month) + 1)).slice(-2); // (parseInt(month) + 1): 1 based indexing for month.
           var ele = {};
           // https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Template_literals
-          ele.title = "" + year + (month + 1);
-          ele.literal = year + " " + (month + 1) + "\u6708";
+          ele.title = "" + year + month;
+          ele.literal = year + " " + month + "\u6708";
           this.yearMonth.push(ele);
         }
       }
@@ -5258,8 +5277,8 @@ var Module = function () {
   }, {
     key: "switch",
     value: function _switch() {
-      this.$ele.toggleClass("calendars_listmode");
-      this.$ele.toggleClass("calendars_daymode");
+      this.$ele.toggleClass(this.className + "_listmode");
+      this.$ele.toggleClass(this.className + "_daymode");
     }
 
     // kjb

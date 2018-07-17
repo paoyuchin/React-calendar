@@ -3,25 +3,6 @@ import moment from "moment/src/moment";
 //Define module name here
 const ModuleName = "calendar";
 
-// $.ajax({
-//   method: 'GET',
-//   url: 'http: //140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json'
-// }).done(function (data) {
-//   console.log(data);
-// });
-
-// $.ajax({
-//   type: 'GET',
-//   url: 'http://140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json',
-//   crossDomain: true,
-//   success: function (data) {
-//     console.log('hi')
-//   }
-// }).error(function (data) {
-//   console.log(data)
-// });
-
-
 //Props default value write here
 const ModuleDefaults = {
   dataSource: [
@@ -73,11 +54,11 @@ const ModuleDefaults = {
 const ModuleReturns = [];
 
 function addEvent(event) {
+  // kjb
   if (!event.guaranteed) {
     // preprocess
     event.guaranteed = event.certain;
   }
-  console.log(event)
   var date = moment(event.date);
   var year = date.get("year");
   var month = date.get("month");
@@ -121,6 +102,7 @@ function addEvent(event) {
 
 function initLayout(withMonth) {
   withMonth = moment(withMonth, "YYYYMM"); //把傳進來的參數變成moment物件
+  let className = this.$ele[0].className;
   // builds elements in tab box
   let preBtn = $('<div class="pre btn"></div>').append(
     $('<i class="fas fa-caret-left"></i>')
@@ -142,12 +124,12 @@ function initLayout(withMonth) {
 
   // builds tab wrap
   let $calendars_tabWrap = $(
-    '<div class="' + this.className + '_tabWrap"></div>'
+    '<div class="' + className + '_tabWrap"></div>'
   ).append($tabBox);
 
   // builds weekswrap
   let $calendars_weeksWrap = $(
-      '<div class="' + this.className + '_weeksWrap"></div>'
+      '<div class="' + className + '_weeksWrap"></div>'
     )
     .append($("<span>星期日</span>"))
     .append($("<span>星期一</span>"))
@@ -161,10 +143,10 @@ function initLayout(withMonth) {
   let $switchBtn = $('<div class="switchBtn"></div>')
     .text("換")
     .click(() => {
-      this.$ele.toggleClass(this.className + "_listmode");
-      this.$ele.toggleClass(this.className + "_daymode");
+      this.$ele.toggleClass("calendars_listmode");
+      this.$ele.toggleClass("calendars_daymode");
     });
-  this.$ele.addClass(this.className + "_daymode");
+  this.$ele.addClass("calendars_daymode");
 
   // builds calendar
   this.$ele.append($switchBtn);
@@ -188,9 +170,9 @@ function renderEvent(targetMonth) {
   let $price = $('<div class="price"></div>');
   let $sell = $('<div class="sell"></div>');
   //build hasData
-  let $li = $('<li class="' + this.className + '_days"></li>');
+  let $li = $('<li class="calendars_days"></li>');
   //build calendars_daysWrap
-  let $calendars_daysWrap = $('<ul class="' + this.className + '_daysWrap"></ul>');
+  let $calendars_daysWrap = $('<ul class="calendars_daysWrap"></ul>');
 
   for (let i = 0; i < 42; i++) {
     ((i) => {
@@ -224,7 +206,6 @@ function renderEvent(targetMonth) {
           _li.addClass("onClickDate");
           // kjb
           this.option.onClickDate(_li, events[eventDate + 1]);
-          // this.option.onClickDate(this, events[eventDate + 1]);
         });
       } else {
         _li.addClass("disabled");
@@ -237,7 +218,7 @@ function renderEvent(targetMonth) {
       _li.appendTo($calendars_daysWrap);
     })(i); //print all cell and give disabled color
   }
-  this.$ele.find('.' + this.className + "_daysWrap").remove();
+  this.$ele.find(".calendars_daysWrap").remove();
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent
 
@@ -248,7 +229,6 @@ class Module {
     this.ele = ele;
     this.$ele = $(ele);
     this.option = options;
-    this.className = this.$ele[0].className;
   }
   init() {
     // $.ajax({
@@ -354,8 +334,8 @@ class Module {
   }
 
   switch () {
-    this.$ele.toggleClass(this.className + "_listmode");
-    this.$ele.toggleClass(this.className + "_daymode");
+    this.$ele.toggleClass("calendars_listmode");
+    this.$ele.toggleClass("calendars_daymode");
   }
 
   // kjb
