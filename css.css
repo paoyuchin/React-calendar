@@ -36,7 +36,8 @@ body {
     width: 100%; }
     .calendar.calendar_daymode .calendar_tabWrap .tabBox {
       height: 50px;
-      width: 100%; }
+      width: 100%;
+      overflow: hidden; }
       .calendar.calendar_daymode .calendar_tabWrap .tabBox div,
       .calendar.calendar_daymode .calendar_tabWrap .tabBox span {
         display: inline-block; }
@@ -45,11 +46,16 @@ body {
       width: 3%; }
       .calendar.calendar_daymode .calendar_tabWrap .btn i {
         color: #e10500; }
-    .calendar.calendar_daymode .calendar_tabWrap .tab {
+    .calendar.calendar_daymode .calendar_tabWrap .tab1,
+    .calendar.calendar_daymode .calendar_tabWrap .tab2,
+    .calendar.calendar_daymode .calendar_tabWrap .tab3 {
       color: #666;
       font-size: 17px;
       width: 30%;
-      padding-bottom: 15px; }
+      padding-bottom: 15px;
+      position: relative; }
+    .calendar.calendar_daymode .calendar_tabWrap .tab2 {
+      background-color: white; }
   .calendar.calendar_daymode .calendar_weeksWrap {
     width: 100%;
     color: #666;

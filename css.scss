@@ -19,6 +19,7 @@ $btnBgC: rgb(237, 233, 222);
 $txtColor: #666;
 $distableedbgc: #f8f8f8;
 $greenTagColor: #66bb3c; //active class
+$hightLightColor: #ede9dd;
 //active js
 .activetxtColor {
 	color: $btnColor;
@@ -50,6 +51,7 @@ $greenTagColor: #66bb3c; //active class
 		.tabBox {
 			height: 50px;
 			width: 100%;
+			overflow: hidden;
 			div,
 			span {
 				display: inline-block;
@@ -62,11 +64,20 @@ $greenTagColor: #66bb3c; //active class
 				color: $btnColor;
 			}
 		}
-		.tab {
+		.tab1,
+		.tab2,
+		.tab3 {
 			color: $txtColor;
 			font-size: 17px;
 			width: 30%;
 			padding-bottom: 15px;
+			position: relative;
+		}
+		.tab1 {
+			// position: absolute;
+		}
+		.tab2 {
+			background-color: white;
 		}
 	}
 	& .#{$className}_weeksWrap {

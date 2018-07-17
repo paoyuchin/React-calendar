@@ -44,15 +44,15 @@ const ModuleDefaults = {
   // @param $btn {$object} jquery 物件
   // @param $data {array} 上一個月的資料
   // @param module {object} 此模組實例物件
-  onClickPrev: function($btn, data, module) {
+  onClickPrev: function ($btn, data, module) {
     console.log($btn, data, module);
   },
   // 點下一個月時
-  onClickNext: function($btn, data, module) {
+  onClickNext: function ($btn, data, module) {
     console.log($btn, data, module);
   },
   // 點日期時
-  onClickDate: function($date, data) {
+  onClickDate: function ($date, data) {
     console.log($date, data);
   }
 };
@@ -61,7 +61,7 @@ const ModuleDefaults = {
 const ModuleReturns = [];
 
 function addEvent(event) {
-  // console.log(event);
+  console.log(event)
   if (!event.guaranteed) {
     // preprocess
     event.guaranteed = event.certain;
@@ -107,34 +107,6 @@ function addEvent(event) {
   }
 }
 
-// kjb
-function renderMonth() {
-  console.log(this.currentMonth);
-  $(".tabBox span").removeClass("active");
-  if (this.currentMonth - 1 < 0) {
-    // no change, highlight tab1
-    $(".tab1").addClass("active");
-  } else if (this.currentMonth + 1 >= this.yearMonth.length) {
-    // no change, highlight tab3
-    $(".tab3").addClass("active");
-  } else {
-    // change, highlight tab2
-    let str1 = this.yearMonth[this.currentMonth - 1].literal;
-    let str2 = this.yearMonth[this.currentMonth].literal;
-    let str3 = this.yearMonth[this.currentMonth + 1].literal;
-    $("span.tab1")
-      .text(str1)
-      .data("title", this.yearMonth[this.currentMonth - 1].title);
-    $("span.tab2")
-      .text(str2)
-      .data("title", this.yearMonth[this.currentMonth].title);
-    $("span.tab3")
-      .text(str3)
-      .data("title", this.yearMonth[this.currentMonth + 1].title);
-    $(".tab2").addClass("active");
-  }
-}
-
 function initLayout(withMonth) {
   withMonth = moment(withMonth, "YYYYMM"); //把傳進來的參數變成moment物件
   // builds elements in tab box
@@ -142,21 +114,20 @@ function initLayout(withMonth) {
     $('<i class="fas fa-caret-left"></i>')
   );
 
-  let monthString = ("0" + (withMonth.get("month") + 1)).slice(-2);
+  let monthString = ('0' + (withMonth.get("month") + 1)).slice(-2);
+  let tab = $('<span class="tab"></span>').text(
+    withMonth.get("year") + " " + monthString + "月"
+  ); //把年份月份，傳進text函數，顯示出來
   //把年份月份，傳進text函數，顯示出來
-  let $tab1 = $('<span class="tab1"></span>');
-  let $tab2 = $('<span class="tab2"></span>');
-  let $tab3 = $('<span class="tab3"></span>');
   let nextBtn = $('<div class="next btn"></div>').append(
     $('<i class="fas fa-caret-right"></i>')
   );
   // builds tab box
   let $tabBox = $('<div class="tabBox"></div>')
     .append(preBtn)
-    .append($tab1)
-    .append($tab2)
-    .append($tab3)
+    .append(tab)
     .append(nextBtn);
+
   // builds tab wrap
   let $calendars_tabWrap = $(
     '<div class="' + this.className + '_tabWrap"></div>'
@@ -164,8 +135,8 @@ function initLayout(withMonth) {
 
   // builds weekswrap
   let $calendars_weeksWrap = $(
-    '<div class="' + this.className + '_weeksWrap"></div>'
-  )
+      '<div class="' + this.className + '_weeksWrap"></div>'
+    )
     .append($("<span>星期日</span>"))
     .append($("<span>星期一</span>"))
     .append($("<span>星期二</span>"))
@@ -173,6 +144,7 @@ function initLayout(withMonth) {
     .append($("<span>星期四</span>"))
     .append($("<span>星期五</span>"))
     .append($("<span>星期六</span>"));
+
 
   let $switchBtn = $('<div class="switchBtn"></div>')
     .text("換")
@@ -186,8 +158,6 @@ function initLayout(withMonth) {
   this.$ele.append($switchBtn);
   this.$ele.append($calendars_tabWrap);
   this.$ele.append($calendars_weeksWrap);
-  // kjb
-  renderMonth.call(this);
   this.$btnLeft = $(".pre");
   this.$btnRight = $(".next");
 }
@@ -208,12 +178,10 @@ function renderEvent(targetMonth) {
   //build hasData
   let $li = $('<li class="' + this.className + '_days"></li>');
   //build calendars_daysWrap
-  let $calendars_daysWrap = $(
-    '<ul class="' + this.className + '_daysWrap"></ul>'
-  );
+  let $calendars_daysWrap = $('<ul class="' + this.className + '_daysWrap"></ul>');
 
   for (let i = 0; i < 42; i++) {
-    (i => {
+    ((i) => {
       let _li = $li.clone();
       let _date = $date.clone();
       let _status = $status.clone();
@@ -256,9 +224,11 @@ function renderEvent(targetMonth) {
       _li.appendTo($calendars_daysWrap);
     })(i); //print all cell and give disabled color
   }
-  this.$ele.find("." + this.className + "_daysWrap").remove();
+  this.$ele.find('.' + this.className + "_daysWrap").remove();
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent
+
+
 
 class Module {
   constructor(ele, options) {
@@ -285,36 +255,38 @@ class Module {
     for (let i = 0; i < dataLength; i++) {
       addEvent.call(this, data[i]);
     } //for
-    // this.data['2018']['7']有的話
-    //this.yearMonth裡面才會有 { title: '201708', literal: '2017 8月' }
+    console.log('this.data', this.data);
+
     this.yearMonth = [];
     for (let year in this.data) {
       for (let month in this.data[year]) {
-        month = ("0" + (parseInt(month) + 1)).slice(-2);
-        // (parseInt(month) + 1): 1 based indexing for month.
+        // https://stackoverflow.com/questions/8043026/how-to-format-numbers-by-prepending-0-to-single-digit-numbers
+        month = ('0' + (parseInt(month) + 1)).slice(-2); // (parseInt(month) + 1): 1 based indexing for month.
         let ele = {};
+        // https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Template_literals
         ele.title = `${year}${month}`;
         ele.literal = `${year} ${month}月`;
         this.yearMonth.push(ele);
       }
     }
-
+    console.log(this.yearMonth);
+    // kjb
     for (let i = 0; i < this.yearMonth.length; i++) {
       if (this.yearMonth[i].title == this.option.initYearMonth) {
         this.currentMonth = i;
         break;
       }
     }
-
+    // kjb
     // 若輸入的年月沒有資料
     if (!this.currentMonth) {
       // 就要找相近的年月
       let distance = [];
-      let initYM = moment(this.option.initYearMonth, "YYYYMM");
+      let initYM = moment(this.option.initYearMonth, 'YYYYMM');
       for (let i = 0; i < this.yearMonth.length; i++) {
-        let _i = moment(this.yearMonth[i].title, "YYYYMM");
+        let _i = moment(this.yearMonth[i].title, 'YYYYMM');
         // https://momentjs.com/docs/#/displaying/difference/
-        distance.push(_i.diff(initYM, "month"));
+        distance.push(_i.diff(initYM, 'month'));
       }
       // 就要找相近的年月
       // https://stackoverflow.com/questions/11301438/return-index-of-greatest-value-in-an-array
@@ -323,48 +295,43 @@ class Module {
       // 若前一個月後一個月都有資料
       for (let i = 0; i < distance.length; i++) {
         if (i != min && distance[i] == distance[min]) {
-          let year1 = moment(this.yearMonth[i]).get("year");
-          let month1 = moment(this.yearMonth[i]).get("month");
-          let year2 = moment(this.yearMonth[min]).get("year");
-          let month2 = moment(this.yearMonth[min]).get("month");
+          let year1 = moment(this.yearMonth[i]).get('year');
+          let month1 = moment(this.yearMonth[i]).get('month');
+          let year2 = moment(this.yearMonth[min]).get('year');
+          let month2 = moment(this.yearMonth[min]).get('month');
           // 就顯示資料比數比較多的那一個月
-          if (
-            Object.keys(this.data[year1][month1]).length >
-            Object.keys(this.data[year2][month2]).length
-          ) {
+          if (Object.keys(this.data[year1][month1]).length > Object.keys(this.data[year2][month2]).length) {
             min = i;
           }
           break;
         }
       }
-
       this.currentMonth = min;
     }
-
+    // kjb
     initLayout.call(this, this.yearMonth[this.currentMonth].title); //從這邊接到月份 參數傳到function
+    // kjb
     renderEvent.call(this, this.yearMonth[this.currentMonth].title);
-
+    // switchMode.call(this);
+    // kjb
     this.$btnLeft.click(() => {
       if (this.currentMonth - 1 > 0) {
         this.currentMonth--;
         renderEvent.call(this, this.yearMonth[this.currentMonth].title);
-        $(".tab").text(this.yearMonth[this.currentMonth].literal);
-        // kjb
-        renderMonth.call(this);
+        $('.tab').text(this.yearMonth[this.currentMonth].literal);
       }
       this.option.onClickPrev(this.$btnLeft, this.data, this);
     });
-
+    // kjb
     this.$btnRight.click(() => {
       if (this.currentMonth + 1 < this.yearMonth.length) {
         this.currentMonth++;
         renderEvent.call(this, this.yearMonth[this.currentMonth].title);
-        $(".tab").text(this.yearMonth[this.currentMonth].literal);
-        // kjb
-        renderMonth.call(this);
+        $('.tab').text(this.yearMonth[this.currentMonth].literal);
       }
       this.option.onClickNext(this.$btnRight, this.data, this);
     });
+
   } // first run here
   nextMonth() {
     this.$btnRight.click();
@@ -373,7 +340,7 @@ class Module {
     this.$btnLeft.click();
   }
 
-  switch() {
+  switch () {
     this.$ele.toggleClass(this.className + "_listmode");
     this.$ele.toggleClass(this.className + "_daymode");
   }
@@ -382,9 +349,9 @@ class Module {
   inputData(events) {
     for (let i = 0; i < events.length; i++) {
       let e = events[i];
-      let year = moment(e.date).get("year");
-      let month = moment(e.date).get("month");
-      let date = moment(e.date).get("date");
+      let year = moment(e.date).get('year');
+      let month = moment(e.date).get('month');
+      let date = moment(e.date).get('date');
       if (!this.data[year]) {
         this.data[year] = {};
       }
@@ -403,7 +370,13 @@ class Module {
   destroy() {
     this.$ele.remove();
   }
+
 }
 
-export { ModuleName, ModuleDefaults, ModuleReturns, Module };
+export {
+  ModuleName,
+  ModuleDefaults,
+  ModuleReturns,
+  Module
+};
 // http: //140.115.236.72/demo-personal/bd104/web/C1700448/json/data1.json

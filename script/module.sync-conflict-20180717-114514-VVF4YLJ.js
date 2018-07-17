@@ -61,7 +61,7 @@ const ModuleDefaults = {
 const ModuleReturns = [];
 
 function addEvent(event) {
-  // console.log(event);
+  console.log(event);
   if (!event.guaranteed) {
     // preprocess
     event.guaranteed = event.certain;
@@ -107,34 +107,6 @@ function addEvent(event) {
   }
 }
 
-// kjb
-function renderMonth() {
-  console.log(this.currentMonth);
-  $(".tabBox span").removeClass("active");
-  if (this.currentMonth - 1 < 0) {
-    // no change, highlight tab1
-    $(".tab1").addClass("active");
-  } else if (this.currentMonth + 1 >= this.yearMonth.length) {
-    // no change, highlight tab3
-    $(".tab3").addClass("active");
-  } else {
-    // change, highlight tab2
-    let str1 = this.yearMonth[this.currentMonth - 1].literal;
-    let str2 = this.yearMonth[this.currentMonth].literal;
-    let str3 = this.yearMonth[this.currentMonth + 1].literal;
-    $("span.tab1")
-      .text(str1)
-      .data("title", this.yearMonth[this.currentMonth - 1].title);
-    $("span.tab2")
-      .text(str2)
-      .data("title", this.yearMonth[this.currentMonth].title);
-    $("span.tab3")
-      .text(str3)
-      .data("title", this.yearMonth[this.currentMonth + 1].title);
-    $(".tab2").addClass("active");
-  }
-}
-
 function initLayout(withMonth) {
   withMonth = moment(withMonth, "YYYYMM"); //把傳進來的參數變成moment物件
   // builds elements in tab box
@@ -143,20 +115,22 @@ function initLayout(withMonth) {
   );
 
   let monthString = ("0" + (withMonth.get("month") + 1)).slice(-2);
+  let tab = $('<span class="tab"></span>').text(
+    withMonth.get("year") + " " + monthString + "月"
+  );
   //把年份月份，傳進text函數，顯示出來
-  let $tab1 = $('<span class="tab1"></span>');
-  let $tab2 = $('<span class="tab2"></span>');
-  let $tab3 = $('<span class="tab3"></span>');
   let nextBtn = $('<div class="next btn"></div>').append(
     $('<i class="fas fa-caret-right"></i>')
   );
   // builds tab box
   let $tabBox = $('<div class="tabBox"></div>')
     .append(preBtn)
-    .append($tab1)
-    .append($tab2)
-    .append($tab3)
+    // .append(tab)
     .append(nextBtn);
+
+    for(){
+
+};
   // builds tab wrap
   let $calendars_tabWrap = $(
     '<div class="' + this.className + '_tabWrap"></div>'
@@ -186,8 +160,6 @@ function initLayout(withMonth) {
   this.$ele.append($switchBtn);
   this.$ele.append($calendars_tabWrap);
   this.$ele.append($calendars_weeksWrap);
-  // kjb
-  renderMonth.call(this);
   this.$btnLeft = $(".pre");
   this.$btnRight = $(".next");
 }
@@ -349,8 +321,6 @@ class Module {
         this.currentMonth--;
         renderEvent.call(this, this.yearMonth[this.currentMonth].title);
         $(".tab").text(this.yearMonth[this.currentMonth].literal);
-        // kjb
-        renderMonth.call(this);
       }
       this.option.onClickPrev(this.$btnLeft, this.data, this);
     });
@@ -360,8 +330,6 @@ class Module {
         this.currentMonth++;
         renderEvent.call(this, this.yearMonth[this.currentMonth].title);
         $(".tab").text(this.yearMonth[this.currentMonth].literal);
-        // kjb
-        renderMonth.call(this);
       }
       this.option.onClickNext(this.$btnRight, this.data, this);
     });
