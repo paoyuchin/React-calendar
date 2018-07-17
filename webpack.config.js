@@ -76,13 +76,17 @@ module.exports = {
             }
         ]
     },
+    devServer: {
+          contentBase: path.join(__dirname, 'dist'),
+          compress: true,
+    },
     plugins: ( (env = 'develop') => {
         let defaultPlugins = [
             ExtractSCSS,
             new HtmlWebpackPlugin({
                 filename: 'preview.html',
                 template: 'preview.cshtml',
-            })
+            }),
         ];
         let envPlugins = {
             'production': [

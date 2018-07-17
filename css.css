@@ -11,6 +11,9 @@
 body {
   height: 1000px; }
 
+.active {
+  background-color: white; }
+
 .activetxtColor {
   color: #e10500; }
 
@@ -24,7 +27,8 @@ body {
   width: 50px;
   position: absolute;
   left: 50%;
-  background-color: lightgray; }
+  background-color: lightgray;
+  cursor: pointer; }
 
 .calendar.calendar_daymode {
   width: 50%;
@@ -42,20 +46,20 @@ body {
       .calendar.calendar_daymode .calendar_tabWrap .tabBox span {
         display: inline-block; }
     .calendar.calendar_daymode .calendar_tabWrap .btn {
-      font-size: 20px;
+      cursor: pointer;
+      font-size: 25px;
       width: 3%; }
       .calendar.calendar_daymode .calendar_tabWrap .btn i {
         color: #e10500; }
     .calendar.calendar_daymode .calendar_tabWrap .tab1,
     .calendar.calendar_daymode .calendar_tabWrap .tab2,
     .calendar.calendar_daymode .calendar_tabWrap .tab3 {
+      cursor: pointer;
       color: #666;
       font-size: 17px;
       width: 30%;
-      padding-bottom: 15px;
+      padding-bottom: 10px;
       position: relative; }
-    .calendar.calendar_daymode .calendar_tabWrap .tab2 {
-      background-color: white; }
   .calendar.calendar_daymode .calendar_weeksWrap {
     width: 100%;
     color: #666;
@@ -133,15 +137,26 @@ body {
       .calendar.calendar_listmode .calendar_tabWrap .tabBox span {
         display: inline-block; }
     .calendar.calendar_listmode .calendar_tabWrap .btn {
-      font-size: 20px;
+      cursor: pointer;
+      font-size: 25px;
       width: 3%; }
       .calendar.calendar_listmode .calendar_tabWrap .btn i {
         color: #e10500; }
-    .calendar.calendar_listmode .calendar_tabWrap .tab {
+    .calendar.calendar_listmode .calendar_tabWrap .tab1,
+    .calendar.calendar_listmode .calendar_tabWrap .tab2,
+    .calendar.calendar_listmode .calendar_tabWrap .tab3 {
+      cursor: pointer;
       color: #666;
       font-size: 17px;
       width: 30%;
-      padding-bottom: 15px; }
+      padding-bottom: 10px;
+      position: relative; }
+    .calendar.calendar_listmode .calendar_tabWrap .tab {
+      cursor: pointer;
+      color: #666;
+      font-size: 17px;
+      width: 30%;
+      padding-bottom: 10px; }
   .calendar.calendar_listmode .calendar_weeksWrap {
     display: none; }
   .calendar.calendar_listmode .calendar_days {

@@ -58,27 +58,20 @@ $('.calendars').calendar({
 
 
 
-// this.$btnRight.click(() => {
-// 	if (this.currentMonth + 1 < this.yearMonth.length) {
-// 		this.currentMonth++;
-// 		renderEvent.call(this, this.yearMonth[this.currentMonth].title);
-// 		$('.tab').text(this.yearMonth[this.currentMonth].literal);
-// 	}
-// 	this.option.onClickNext(this.$btnRight, this.data, this);
-// }); 
 
 
 
-// 下一個有資料的月份
+
+// 下一個有資料的月份 ok
 $('.calendars').calendar('nextMonth', function (data, module) {
 	console.log(data, module);
 });
-// 上一個有資料的月份
+// 上一個有資料的月份 ok
 $('.calendars').calendar('prevMonth', function (data, module) {
 	console.log(data, module);
 });
 // 切換日曆或列表模式
-$('.calendars').calendar('switch');
+$('.calendar').calendar('switch');
 
 // 加資料時如果有相同日期的資料，以後輸入為主，輸入時如果輸入沒有的月份，模組會加上該月份
 $('.calendars').calendar('inputData', [{
@@ -91,8 +84,8 @@ $('.calendars').calendar('inputData', [{
 	},
 	// ...
 ]);
-// 重設資料時，月曆、tab重新產出
-$('.calendars').calendar('resetData', [{
+// 重設資料時，月曆、tab重新產出   ok
+$('.calendar').calendar('resetData', [{  
 		"guaranteed": true, // {boolean}x
 		"date": "2016/12/15", // {string} YYYY/MM/DD
 		"price": "234567", // {string|number} XXXXXX | 近期上架
@@ -102,8 +95,8 @@ $('.calendars').calendar('resetData', [{
 	},
 	// ...
 ]);
-// destroy calendar，destroy時連class new出來的實例物件也要刪除
-$('.calendars').calendar('destroy');
+// destroy calendar，destroy時連class new出來的實例物件也要刪除 ok
+$('.calendars').calendar('destroy'); 
 
 
 // JSON template
