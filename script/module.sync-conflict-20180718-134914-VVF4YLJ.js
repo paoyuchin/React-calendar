@@ -219,7 +219,7 @@ function renderEvent(targetMonth) {
   let $price = $('<div class="price"></div>');
   let $sell = $('<div class="sell"></div>');
   let $weekDay = $('<div class="weekDay"></div>');
-  let hasData = $('<div class="hasData"></div>');
+  let $hasData = $('<div class="hasData"></div>');
 
   //build hasData
   let $li = $('<li class="' + this.className + '_days"></li>');
@@ -243,23 +243,19 @@ function renderEvent(targetMonth) {
         _date.text(eventDate + 1);
         if (events[eventDate + 1]) {
           // 在這邊把event的資料放進li
-          _date.text(eventDate + 1).addClass('hasClass');
-          _date.text(eventDate + 1).addClass('hasClass');
-          _status.text(events[eventDate + 1].status).addClass('hasClass');
-          _group.text("團位：" + events[eventDate + 1].totalVacnacy).addClass('hasClass');
-          _price.text("$" + events[eventDate + 1].price).addClass('hasClass');
-          _sell.text("可賣:" + events[eventDate + 1].availableVancancy).addClass('hasClass');
+          _status.text(events[eventDate + 1].status);
+          _group.text("團位：" + events[eventDate + 1].totalVacnacy);
+          _price.text("$" + events[eventDate + 1].price);
+          _sell.text("可賣:" + events[eventDate + 1].availableVancancy);
           let weekDayIndex = moment(events[eventDate + 1].date).get('day');
-          _weekDay.text(weekDayArr[weekDayIndex]).addClass('hasClass');
+          _weekDay.text(weekDayArr[weekDayIndex]);
           if (events[eventDate + 1].guaranteed) {
             let $GuaranteedTripTag = $(
               '<span class="GuaranteedTripTag"></span>'
-            ).text("保證出團").addClass('hasData');
+            ).text("保證出團");
             let _GuaranteedTripTag = $GuaranteedTripTag.clone();
             _GuaranteedTripTag.appendTo(_li);
           }
-          // kjb
-          _li.addClass('hasData');
           _li.click(() => {
             $("li").removeClass("onClickDate");
             _li.addClass("onClickDate");
@@ -410,13 +406,16 @@ class Module {
     }
   }
 
+
   resetData(events) {
     this.inputData(events);
     renderEvent.call(this, this.yearMonth[this.currentMonth].title);
   }
+
   destroy() {
     this.$ele.remove();
   }
+
 }
 
 export {

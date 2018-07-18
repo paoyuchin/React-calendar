@@ -101,7 +101,8 @@ $hightLightColor: #ede9dd;
 		.disabled {
 			background-color: #f8f8f8;
 		}
-		.#{$className}_days {
+		.#{$className}_days,
+		.hasData {
 			height: 100px;
 			padding: 3px;
 			width: 14.2%;
@@ -140,9 +141,8 @@ $hightLightColor: #ede9dd;
 				color: $btnColor;
 				font-weight: 800;
 			}
-			.weekDay {
+			.calendar .calendar_daymode .calendar_daysWrap .calendar_days .weekDay {
 				color: red;
-				display: none;
 			}
 		}
 	}
@@ -206,8 +206,6 @@ $hightLightColor: #ede9dd;
 		display: none;
 	}
 	.#{$className}_days {
-        // kjb
-        display: none;
 		height: 62px; // margin: 10px 0;
 		.date,
 		.sell,
@@ -255,15 +253,11 @@ $hightLightColor: #ede9dd;
 			color: #24a07c;
 		}
 	}
-    // kjb
-    .hasData {
-        display: block;
-    }
 	.weekDay {
 		width: 100px;
 		height: 30px;
 		top: 68%;
-		left: -3%;
+		left: 0%;
 		color: #666;
 		position: absolute;
 	}

@@ -242,15 +242,15 @@ function renderEvent(targetMonth) {
         //直到需要加日期那一天
         _date.text(eventDate + 1);
         if (events[eventDate + 1]) {
+          
+          _date.text(eventDate + 1);
           // 在這邊把event的資料放進li
-          _date.text(eventDate + 1).addClass('hasClass');
-          _date.text(eventDate + 1).addClass('hasClass');
-          _status.text(events[eventDate + 1].status).addClass('hasClass');
-          _group.text("團位：" + events[eventDate + 1].totalVacnacy).addClass('hasClass');
-          _price.text("$" + events[eventDate + 1].price).addClass('hasClass');
-          _sell.text("可賣:" + events[eventDate + 1].availableVancancy).addClass('hasClass');
+          _status.text(events[eventDate + 1].status).addClass('hasData');
+          _group.text("團位：" + events[eventDate + 1].totalVacnacy).addClass('hasData');
+          _price.text("$" + events[eventDate + 1].price).addClass('hasData');
+          _sell.text("可賣:" + events[eventDate + 1].availableVancancy).addClass('hasData');
           let weekDayIndex = moment(events[eventDate + 1].date).get('day');
-          _weekDay.text(weekDayArr[weekDayIndex]).addClass('hasClass');
+          _weekDay.text(weekDayArr[weekDayIndex]).addClass('hasData');
           if (events[eventDate + 1].guaranteed) {
             let $GuaranteedTripTag = $(
               '<span class="GuaranteedTripTag"></span>'
@@ -258,8 +258,6 @@ function renderEvent(targetMonth) {
             let _GuaranteedTripTag = $GuaranteedTripTag.clone();
             _GuaranteedTripTag.appendTo(_li);
           }
-          // kjb
-          _li.addClass('hasData');
           _li.click(() => {
             $("li").removeClass("onClickDate");
             _li.addClass("onClickDate");
@@ -410,13 +408,16 @@ class Module {
     }
   }
 
+
   resetData(events) {
     this.inputData(events);
     renderEvent.call(this, this.yearMonth[this.currentMonth].title);
   }
+
   destroy() {
     this.$ele.remove();
   }
+
 }
 
 export {

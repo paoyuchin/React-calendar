@@ -113,6 +113,10 @@ body {
       .calendar.calendar_daymode .calendar_daysWrap .hasData .price {
         color: #e10500;
         font-weight: 800; }
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .weekDay,
+      .calendar.calendar_daymode .calendar_daysWrap .hasData .weekDay {
+        color: red;
+        display: none; }
 
 .calendar.calendar_listmode {
   width: 50%;
@@ -123,7 +127,7 @@ body {
     border-bottom: 1px solid lightgray; }
   .calendar.calendar_listmode .GuaranteedTripTag {
     position: absolute;
-    left: 7%;
+    left: 15%;
     top: 60%;
     background-color: #66bb3c;
     color: white; }
@@ -179,15 +183,15 @@ body {
     .calendar.calendar_listmode .calendar_days .group {
       position: absolute;
       display: inline-block;
-      left: 18%;
+      left: 21%;
       font-weight: bold;
-      padding-top: 11px; }
+      padding-top: 3px; }
     .calendar.calendar_listmode .calendar_days .sell {
       font-weight: bold;
       position: absolute;
       display: inline-block;
-      left: 7%;
-      padding-top: 11px; }
+      left: 12%;
+      padding-top: 3px; }
     .calendar.calendar_listmode .calendar_days .price {
       position: absolute;
       right: 0%;
@@ -196,8 +200,15 @@ body {
     .calendar.calendar_listmode .calendar_days .date {
       font-size: 30px;
       padding-left: 15px;
-      padding-top: 11px; }
+      padding-top: 0px; }
     .calendar.calendar_listmode .calendar_days .status {
       color: #24a07c; }
+  .calendar.calendar_listmode .weekDay {
+    width: 100px;
+    height: 30px;
+    top: 68%;
+    left: -3%;
+    color: #666;
+    position: absolute; }
   .calendar.calendar_listmode .calendar_days.disabled {
     display: none; }

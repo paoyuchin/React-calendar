@@ -206,8 +206,6 @@ $hightLightColor: #ede9dd;
 		display: none;
 	}
 	.#{$className}_days {
-        // kjb
-        display: none;
 		height: 62px; // margin: 10px 0;
 		.date,
 		.sell,
@@ -254,11 +252,10 @@ $hightLightColor: #ede9dd;
 		.status {
 			color: #24a07c;
 		}
+		.hasData {
+			display: block;
+		}
 	}
-    // kjb
-    .hasData {
-        display: block;
-    }
 	.weekDay {
 		width: 100px;
 		height: 30px;

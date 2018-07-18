@@ -63,18 +63,18 @@ $('.calendars').calendar({
 
 
 // 下一個有資料的月份 ok
-$('.calendars').calendar('nextMonth', function (data, module) {
+$('.calendar').calendar('nextMonth', function (data, module) {
 	console.log(data, module);
 });
 // 上一個有資料的月份 ok
-$('.calendars').calendar('prevMonth', function (data, module) {
+$('.calendar').calendar('prevMonth', function (data, module) {
 	console.log(data, module);
 });
 // 切換日曆或列表模式
 $('.calendar').calendar('switch');
 
 // 加資料時如果有相同日期的資料，以後輸入為主，輸入時如果輸入沒有的月份，模組會加上該月份
-$('.calendars').calendar('inputData', [{
+$('.calendar').calendar('inputData', [{
 		"guaranteed": true, // {boolean}
 		"date": "2017/07/01", // {string} YYYY/MM/DD
 		"price": "234567", // {string|number} XXXXXX | 近期上架
@@ -96,7 +96,7 @@ $('.calendar').calendar('resetData', [{
 	// ...
 ]);
 // destroy calendar，destroy時連class new出來的實例物件也要刪除 ok
-$('.calendars').calendar('destroy'); 
+$('.calendar').calendar('destroy'); 
 
 
 // JSON template

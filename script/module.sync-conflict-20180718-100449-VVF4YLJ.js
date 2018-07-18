@@ -149,6 +149,8 @@ function initLayout(withMonth) {
   let nextBtn = $('<div class="next btn"></div>').append(
     $('<i class="fas fa-caret-right"></i>'));
 
+
+
   // builds tab box
   let $tabBox = $('<div class="tabBox"></div>')
     .append(preBtn)
@@ -177,6 +179,7 @@ function initLayout(withMonth) {
     .text("換")
     .click(() => {
       this.$ele.toggleClass(this.className + "_listmode");
+
       this.$ele.toggleClass(this.className + "_daymode");
     });
   this.$ele.addClass(this.className + "_daymode");
@@ -185,6 +188,7 @@ function initLayout(withMonth) {
   this.$ele.append($switchBtn);
   this.$ele.append($calendars_tabWrap);
   this.$ele.append($calendars_weeksWrap);
+
 
   renderMonth.call(this);
   this.$btnLeft = $(".pre");
@@ -207,27 +211,24 @@ function initLayout(withMonth) {
 
 function renderEvent(targetMonth) {
   targetMonth = moment(targetMonth, "YYYYMM");
-
   let events = this.data[targetMonth.get("year")][targetMonth.get("month")];
   let monthlyDays = targetMonth.daysInMonth();
   // console.log(monthlyDays);
   let firstWeekDay = targetMonth.startOf("month").get("weekday");
   //element
-  let $date = $('<div class="date"></div>');
+  let $date = $('<div class="date"></div>'); // .date
+  // $date.append($("<span></span>"));
   let $status = $('<div class="status"></div>');
   let $group = $('<div class="group"></div>');
   let $price = $('<div class="price"></div>');
   let $sell = $('<div class="sell"></div>');
-  let $weekDay = $('<div class="weekDay"></div>');
-  let hasData = $('<div class="hasData"></div>');
-
+  let $listModeWeekDay = $('<div class="listModeWeekDay"></div>');
   //build hasData
   let $li = $('<li class="' + this.className + '_days"></li>');
   //build calendars_daysWrap
   let $calendars_daysWrap = $(
     '<ul class="' + this.className + '_daysWrap"></ul>'
   );
-  const weekDayArr = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
   for (let i = 0; i < 42; i++) {
     (i => {
       let _li = $li.clone();
@@ -236,30 +237,27 @@ function renderEvent(targetMonth) {
       let _group = $group.clone();
       let _price = $price.clone();
       let _sell = $sell.clone();
-      let _weekDay = $weekDay.clone();
+      let _listModeWeekDay = $listModeWeekDay.clone();
       let eventDate = i - firstWeekDay;
       if (i >= firstWeekDay && i <= monthlyDays + firstWeekDay - 1) {
         //直到需要加日期那一天
         _date.text(eventDate + 1);
         if (events[eventDate + 1]) {
+          // console.log("//", events[eventDate + 1]);
           // 在這邊把event的資料放進li
-          _date.text(eventDate + 1).addClass('hasClass');
-          _date.text(eventDate + 1).addClass('hasClass');
-          _status.text(events[eventDate + 1].status).addClass('hasClass');
-          _group.text("團位：" + events[eventDate + 1].totalVacnacy).addClass('hasClass');
-          _price.text("$" + events[eventDate + 1].price).addClass('hasClass');
-          _sell.text("可賣:" + events[eventDate + 1].availableVancancy).addClass('hasClass');
-          let weekDayIndex = moment(events[eventDate + 1].date).get('day');
-          _weekDay.text(weekDayArr[weekDayIndex]).addClass('hasClass');
+          _status.text(events[eventDate + 1].status);
+          _group.text("團位：" + events[eventDate + 1].totalVacnacy);
+          _price.text("$" + events[eventDate + 1].price);
+          _sell.text("可賣:" + events[eventDate + 1].availableVancancy);
+          _listModeWeekDay.text('星期' + events[eventDate + 1].price);
           if (events[eventDate + 1].guaranteed) {
+            // console.log(events[eventDate + 1].guaranteed);
             let $GuaranteedTripTag = $(
               '<span class="GuaranteedTripTag"></span>'
-            ).text("保證出團").addClass('hasData');
+            ).text("保證出團");
             let _GuaranteedTripTag = $GuaranteedTripTag.clone();
             _GuaranteedTripTag.appendTo(_li);
           }
-          // kjb
-          _li.addClass('hasData');
           _li.click(() => {
             $("li").removeClass("onClickDate");
             _li.addClass("onClickDate");
@@ -268,14 +266,13 @@ function renderEvent(targetMonth) {
         }
       } else {
         _li.addClass("disabled");
-      }
-      // 一進來程式會一直執行這一段
+      } // 一進來程式會一直執行這一段
       _status.appendTo(_li);
       _group.appendTo(_li);
       _price.appendTo(_li);
       _sell.appendTo(_li);
       _date.prependTo(_li);
-      _weekDay.appendTo(_li)
+      _listModeWeekDay.appendTo(_li)
       _li.appendTo($calendars_daysWrap);
     })(i); //print all cell and give disabled color
   }
@@ -322,6 +319,7 @@ class Module {
             break;
           }
         }
+
         // 若輸入的年月沒有資料
         if (!this.currentMonth) {
           // 就要找相近的年月
@@ -410,13 +408,16 @@ class Module {
     }
   }
 
+
   resetData(events) {
     this.inputData(events);
     renderEvent.call(this, this.yearMonth[this.currentMonth].title);
   }
+
   destroy() {
     this.$ele.remove();
   }
+
 }
 
 export {
