@@ -61,18 +61,10 @@ const ModuleDefaults = {
 const ModuleReturns = [];
 
 function addEvent(event) {
-  // preprocess
+  // console.log(event);
   if (!event.guaranteed) {
+    // preprocess
     event.guaranteed = event.certain;
-  }
-  if (!event.availableVancancy) {
-    event.availableVancancy = event.onsell;
-  }
-  if (!event.totalVacnacy) {
-    event.totalVacnacy = event.total;
-  }
-  if (!event.status) {
-    event.status = event.state;
   }
   var date = moment(event.date);
   var year = date.get("year");
@@ -290,90 +282,6 @@ function renderEvent(targetMonth) {
   this.$ele.find("." + this.className + "_daysWrap").remove();
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent
-function successCallBack(data) {
-  let dataLength = data.length;
-  this.data = {};
-  this.month = [];
-  for (let i = 0; i < dataLength; i++) {
-    addEvent.call(this, data[i]);
-  } //for
-  // this.data['2018']['7']有的話
-  //this.yearMonth裡面才會有 { title: '201708', literal: '2017 8月' }
-  this.yearMonth = [];
-  for (let year in this.data) {
-    for (let month in this.data[year]) {
-      month = ("0" + (parseInt(month) + 1)).slice(-2);
-      // (parseInt(month) + 1): 1 based indexing for month.
-      let ele = {};
-      ele.title = `${year}${month}`;
-      ele.literal = `${year} ${month}月`;
-      this.yearMonth.push(ele);
-    }
-  }
-  for (let i = 0; i < this.yearMonth.length; i++) {
-    if (this.yearMonth[i].title == this.option.initYearMonth) {
-      this.currentMonth = i;
-      break;
-    }
-  }
-  // 若輸入的年月沒有資料
-  if (!this.currentMonth) {
-    // 就要找相近的年月
-    let distance = [];
-    let initYM = moment(this.option.initYearMonth, "YYYYMM");
-    for (let i = 0; i < this.yearMonth.length; i++) {
-      let _i = moment(this.yearMonth[i].title, "YYYYMM");
-      // https://momentjs.com/docs/#/displaying/difference/
-      distance.push(_i.diff(initYM, "month"));
-    }
-    // 就要找相近的年月
-    let min = distance.indexOf(Math.min(...distance));
-
-    // 若前一個月後一個月都有資料
-    for (let i = 0; i < distance.length; i++) {
-      if (i != min && distance[i] == distance[min]) {
-        let year1 = moment(this.yearMonth[i]).get("year");
-        let month1 = moment(this.yearMonth[i]).get("month");
-        let year2 = moment(this.yearMonth[min]).get("year");
-        let month2 = moment(this.yearMonth[min]).get("month");
-        // 就顯示資料比數比較多的那一個月
-        if (
-          Object.keys(this.data[year1][month1]).length >
-          Object.keys(this.data[year2][month2]).length
-        ) {
-          min = i;
-        }
-        break;
-      }
-    }
-    this.currentMonth = min;
-  }
-
-  initLayout.call(this, this.yearMonth[this.currentMonth].title); //從這邊接到月份 參數傳到function
-  renderEvent.call(this, this.yearMonth[this.currentMonth].title);
-
-  this.$btnLeft.click(() => {
-    if (this.currentMonth - 1 > 0) {
-      this.currentMonth--;
-      renderEvent.call(this, this.yearMonth[this.currentMonth].title);
-      $(".tab").text(this.yearMonth[this.currentMonth].literal);
-
-      renderMonth.call(this);
-    }
-    this.option.onClickPrev(this.$btnLeft, this.data, this);
-  });
-
-  this.$btnRight.click(() => {
-    if (this.currentMonth + 1 < this.yearMonth.length) {
-      this.currentMonth++;
-      renderEvent.call(this, this.yearMonth[this.currentMonth].title);
-      $(".tab").text(this.yearMonth[this.currentMonth].literal);
-
-      renderMonth.call(this);
-    }
-    this.option.onClickNext(this.$btnRight, this.data, this);
-  });
-}
 
 class Module {
   constructor(ele, options) {
@@ -383,15 +291,100 @@ class Module {
     this.className = this.$ele[0].className;
   }
   init() {
-    if (typeof this.option.dataSource === 'object') {
-      successCallBack.call(this, this.option.dataSource);
-    } else {
-      $.ajax({
-        type: "GET",
-        url: this.option.dataSource,
-        success: successCallBack.bind(this)
-      });
+    if(typeof(this.option.dataSource) === 'string'){
+        
     }
+    let that = this;
+    $.ajax({
+      type: "GET",
+      url: "../json/data1.json",
+      success: successCallBack(data)
+    });
+
+    var successCallBack = () => {
+      let dataLength = data.length;
+      this.data = {};
+      this.month = [];
+      for (let i = 0; i < dataLength; i++) {
+        addEvent.call(this, data[i]);
+      } //for
+      // this.data['2018']['7']有的話
+      //this.yearMonth裡面才會有 { title: '201708', literal: '2017 8月' }
+      this.yearMonth = [];
+      for (let year in this.data) {
+        for (let month in this.data[year]) {
+          month = ("0" + (parseInt(month) + 1)).slice(-2);
+          // (parseInt(month) + 1): 1 based indexing for month.
+          let ele = {};
+          ele.title = `${year}${month}`;
+          ele.literal = `${year} ${month}月`;
+          this.yearMonth.push(ele);
+        }
+      }
+      for (let i = 0; i < this.yearMonth.length; i++) {
+        if (this.yearMonth[i].title == this.option.initYearMonth) {
+          this.currentMonth = i;
+          break;
+        }
+      }
+      // 若輸入的年月沒有資料
+      if (!this.currentMonth) {
+        // 就要找相近的年月
+        let distance = [];
+        let initYM = moment(this.option.initYearMonth, "YYYYMM");
+        for (let i = 0; i < this.yearMonth.length; i++) {
+          let _i = moment(this.yearMonth[i].title, "YYYYMM");
+          // https://momentjs.com/docs/#/displaying/difference/
+          distance.push(_i.diff(initYM, "month"));
+        }
+        // 就要找相近的年月
+        let min = distance.indexOf(Math.min(...distance));
+
+        // 若前一個月後一個月都有資料
+        for (let i = 0; i < distance.length; i++) {
+          if (i != min && distance[i] == distance[min]) {
+            let year1 = moment(this.yearMonth[i]).get("year");
+            let month1 = moment(this.yearMonth[i]).get("month");
+            let year2 = moment(this.yearMonth[min]).get("year");
+            let month2 = moment(this.yearMonth[min]).get("month");
+            // 就顯示資料比數比較多的那一個月
+            if (
+              Object.keys(this.data[year1][month1]).length >
+              Object.keys(this.data[year2][month2]).length
+            ) {
+              min = i;
+            }
+            break;
+          }
+        }
+        this.currentMonth = min;
+      }
+
+      initLayout.call(this, this.yearMonth[this.currentMonth].title); //從這邊接到月份 參數傳到function
+      renderEvent.call(this, this.yearMonth[this.currentMonth].title);
+
+      this.$btnLeft.click(() => {
+        if (this.currentMonth - 1 > 0) {
+          this.currentMonth--;
+          renderEvent.call(this, this.yearMonth[this.currentMonth].title);
+          $(".tab").text(this.yearMonth[this.currentMonth].literal);
+
+          renderMonth.call(this);
+        }
+        this.option.onClickPrev(this.$btnLeft, this.data, this);
+      });
+
+      this.$btnRight.click(() => {
+        if (this.currentMonth + 1 < this.yearMonth.length) {
+          this.currentMonth++;
+          renderEvent.call(this, this.yearMonth[this.currentMonth].title);
+          $(".tab").text(this.yearMonth[this.currentMonth].literal);
+
+          renderMonth.call(this);
+        }
+        this.option.onClickNext(this.$btnRight, this.data, this);
+      });
+    };
   } // first run here
 
   nextMonth() {
@@ -417,36 +410,7 @@ class Module {
       if (!this.data[year][month]) {
         this.data[year][month] = {};
       }
-
       this.data[year][month][date] = e;
-
-      month = ("0" + (parseInt(month) + 1)).slice(-2);
-      // check if month exists in this.yearMonthMonth
-      let lower = -1;
-      for (let i = 0; i < this.yearMonth.length; i++) {
-        if (parseInt(this.yearMonth[i].title) <= parseInt(`${year}${month}`)) {
-          lower = i;
-        }
-      }
-      // if month not found
-      if (this.yearMonth[lower].title != `${year}${month}`) {
-        let ele = {};
-        ele.title = `${year}${month}`;
-        ele.literal = `${year} ${month}月`;
-        if (lower == -1) {
-          // everyone is greater than new YM
-          // new YM should be at the beginning.
-          this.yearMonth.unshift(ele);
-        } else if (lower == this.yearMonth.length - 1) {
-          // everyone is lesser than new YM
-          // new YM should be at the ending.
-          this.yearMonth.push(ele);
-        } else {
-          // new YM should be at the middle of the array.
-          // insert new YM to the right position.
-          this.yearMonth.splice(lower + 1, 0, ele);
-        }
-      }
     }
   }
   resetData(events) {

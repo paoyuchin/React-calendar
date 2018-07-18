@@ -160,7 +160,7 @@ $hightLightColor: #ede9dd;
 	}
 	.GuaranteedTripTag {
 		position: absolute;
-		left: 15%;
+		left: 12%;
 		top: 60%;
 		background-color: $greenTagColor;
 		color: white;
@@ -206,8 +206,8 @@ $hightLightColor: #ede9dd;
 		display: none;
 	}
 	.#{$className}_days {
-        // kjb
-        display: none;
+		// kjb
+		display: none;
 		height: 62px; // margin: 10px 0;
 		.date,
 		.sell,
@@ -230,11 +230,11 @@ $hightLightColor: #ede9dd;
 			position: absolute;
 			display: inline-block;
 			left: 21%;
-			font-weight: bold;
+			font-weight: 400;
 			padding-top: 3px;
 		}
 		.sell {
-			font-weight: bold;
+			font-weight: 400;
 			position: absolute;
 			display: inline-block;
 			left: 12%;
@@ -254,11 +254,10 @@ $hightLightColor: #ede9dd;
 		.status {
 			color: #24a07c;
 		}
+	} // kjb
+	.hasData {
+		display: block;
 	}
-    // kjb
-    .hasData {
-        display: block;
-    }
 	.weekDay {
 		width: 100px;
 		height: 30px;

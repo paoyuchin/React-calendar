@@ -24,7 +24,7 @@ $('.calendars').calendar({
 	],
 	// 輸入一開始要在哪一個月份 [string] YYYYMM，若輸入的年月沒有資料，
 	// 就要找相近的年月，若前一個月後一個月都有資料，就顯示資料比數比較多的那一個月
-	initYearMonth: '201711',
+	initYearMonth: '201710',
 	// 設定各資料的key
 	dataKeySetting: {
 		// 保證出團
@@ -85,7 +85,7 @@ $('.calendar').calendar('inputData', [{
 	// ...
 ]);
 // 重設資料時，月曆、tab重新產出   ok
-$('.calendar').calendar('resetData', [{  
+$('.calendar').calendar('resetData', [{
 		"guaranteed": true, // {boolean}x
 		"date": "2016/12/15", // {string} YYYY/MM/DD
 		"price": "234567", // {string|number} XXXXXX | 近期上架
@@ -93,10 +93,17 @@ $('.calendar').calendar('resetData', [{
 		"totalVacnacy": 20, // {number}
 		"status": "報名" // {string} 報名 | 後補 | 預定 | 截止 | 額滿 | 關團
 	},
-	// ...
+	{
+		"guaranteed": true, // {boolean}x
+		"date": "2016/12/16", // {string} YYYY/MM/DD
+		"price": "234567", // {string|number} XXXXXX | 近期上架
+		"availableVancancy": 0, // {number}
+		"totalVacnacy": 20, // {number}
+		"status": "報名" // {string} 報名 | 後補 | 預定 | 截止 | 額滿 | 關團
+	}
 ]);
 // destroy calendar，destroy時連class new出來的實例物件也要刪除 ok
-$('.calendar').calendar('destroy'); 
+$('.calendar').calendar('destroy');
 
 
 // JSON template

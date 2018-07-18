@@ -73,8 +73,7 @@ body {
     width: 100%; }
     .calendar.calendar_daymode .calendar_daysWrap .disabled {
       background-color: #f8f8f8; }
-    .calendar.calendar_daymode .calendar_daysWrap .calendar_days,
-    .calendar.calendar_daymode .calendar_daysWrap .hasData {
+    .calendar.calendar_daymode .calendar_daysWrap .calendar_days {
       height: 100px;
       padding: 3px;
       width: 14.2%;
@@ -84,37 +83,28 @@ body {
       float: left;
       font-size: 12px;
       position: relative; }
-      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .GuaranteedTripTag,
-      .calendar.calendar_daymode .calendar_daysWrap .hasData .GuaranteedTripTag {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .GuaranteedTripTag {
         position: absolute;
         right: 0;
         top: 0;
         background-color: #66bb3c;
         color: white; }
-      .calendar.calendar_daymode .calendar_daysWrap .calendar_days div,
-      .calendar.calendar_daymode .calendar_daysWrap .hasData div {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days div {
         text-align: left; }
-      .calendar.calendar_daymode .calendar_daysWrap .calendar_days span,
-      .calendar.calendar_daymode .calendar_daysWrap .hasData span {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days span {
         display: inline-block; }
-      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .status,
-      .calendar.calendar_daymode .calendar_daysWrap .hasData .status {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .status {
         color: #24a07c; }
-      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .status_orange,
-      .calendar.calendar_daymode .calendar_daysWrap .hasData .status_orange {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .status_orange {
         color: orange; }
-      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .sell,
-      .calendar.calendar_daymode .calendar_daysWrap .hasData .sell {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .sell {
         color: #666; }
-      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .group,
-      .calendar.calendar_daymode .calendar_daysWrap .hasData .group {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .group {
         color: #666; }
-      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .price,
-      .calendar.calendar_daymode .calendar_daysWrap .hasData .price {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .price {
         color: #e10500;
         font-weight: 800; }
-      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .weekDay,
-      .calendar.calendar_daymode .calendar_daysWrap .hasData .weekDay {
+      .calendar.calendar_daymode .calendar_daysWrap .calendar_days .weekDay {
         color: red;
         display: none; }
 
@@ -127,7 +117,7 @@ body {
     border-bottom: 1px solid lightgray; }
   .calendar.calendar_listmode .GuaranteedTripTag {
     position: absolute;
-    left: 15%;
+    left: 12%;
     top: 60%;
     background-color: #66bb3c;
     color: white; }
@@ -164,6 +154,7 @@ body {
   .calendar.calendar_listmode .calendar_weeksWrap {
     display: none; }
   .calendar.calendar_listmode .calendar_days {
+    display: none;
     height: 62px; }
     .calendar.calendar_listmode .calendar_days .date,
     .calendar.calendar_listmode .calendar_days .sell,
@@ -184,10 +175,10 @@ body {
       position: absolute;
       display: inline-block;
       left: 21%;
-      font-weight: bold;
+      font-weight: 400;
       padding-top: 3px; }
     .calendar.calendar_listmode .calendar_days .sell {
-      font-weight: bold;
+      font-weight: 400;
       position: absolute;
       display: inline-block;
       left: 12%;
@@ -203,6 +194,8 @@ body {
       padding-top: 0px; }
     .calendar.calendar_listmode .calendar_days .status {
       color: #24a07c; }
+  .calendar.calendar_listmode .hasData {
+    display: block; }
   .calendar.calendar_listmode .weekDay {
     width: 100px;
     height: 30px;

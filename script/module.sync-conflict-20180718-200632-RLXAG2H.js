@@ -86,6 +86,13 @@ function addEvent(event) {
   }
   if (!this.data[year][month][date]) {
     // empty
+    let e = {};
+    e.guaranteed = event[dataKeySetting.guaranteed];
+    e.status = event[dataKeySetting.status];
+    e.available = event[dataKeySetting.available];
+    e.total = event[dataKeySetting.total];
+    e.price = event[dataKeySetting.price];
+    this.data[year][month][date] = e;
     this.data[year][month][date] = event;
   } else {
     // already has event.
@@ -422,30 +429,17 @@ class Module {
 
       month = ("0" + (parseInt(month) + 1)).slice(-2);
       // check if month exists in this.yearMonthMonth
-      let lower = -1;
-      for (let i = 0; i < this.yearMonth.length; i++) {
-        if (parseInt(this.yearMonth[i].title) <= parseInt(`${year}${month}`)) {
-          lower = i;
+      let hasMonth = false;
+      for (let i = 0; i < this.yearMonth.lenght; i++) {
+        if (this.yearMonth[i].title == `${year}${month}`) {
+          hasMonth = true;
         }
       }
-      // if month not found
-      if (this.yearMonth[lower].title != `${year}${month}`) {
+      if (!hasMonth) {
         let ele = {};
         ele.title = `${year}${month}`;
         ele.literal = `${year} ${month}月`;
-        if (lower == -1) {
-          // everyone is greater than new YM
-          // new YM should be at the beginning.
-          this.yearMonth.unshift(ele);
-        } else if (lower == this.yearMonth.length - 1) {
-          // everyone is lesser than new YM
-          // new YM should be at the ending.
-          this.yearMonth.push(ele);
-        } else {
-          // new YM should be at the middle of the array.
-          // insert new YM to the right position.
-          this.yearMonth.splice(lower + 1, 0, ele);
-        }
+        this.yearMonth.push(ele);
       }
     }
   }

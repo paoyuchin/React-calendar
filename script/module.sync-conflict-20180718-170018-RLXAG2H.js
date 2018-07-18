@@ -61,18 +61,10 @@ const ModuleDefaults = {
 const ModuleReturns = [];
 
 function addEvent(event) {
-  // preprocess
+  // console.log(event);
   if (!event.guaranteed) {
+    // preprocess
     event.guaranteed = event.certain;
-  }
-  if (!event.availableVancancy) {
-    event.availableVancancy = event.onsell;
-  }
-  if (!event.totalVacnacy) {
-    event.totalVacnacy = event.total;
-  }
-  if (!event.status) {
-    event.status = event.state;
   }
   var date = moment(event.date);
   var year = date.get("year");
@@ -383,7 +375,7 @@ class Module {
     this.className = this.$ele[0].className;
   }
   init() {
-    if (typeof this.option.dataSource === 'object') {
+    if (typeof (this.option.dataSource) === 'object') {
       successCallBack.call(this, this.option.dataSource);
     } else {
       $.ajax({
@@ -417,36 +409,7 @@ class Module {
       if (!this.data[year][month]) {
         this.data[year][month] = {};
       }
-
       this.data[year][month][date] = e;
-
-      month = ("0" + (parseInt(month) + 1)).slice(-2);
-      // check if month exists in this.yearMonthMonth
-      let lower = -1;
-      for (let i = 0; i < this.yearMonth.length; i++) {
-        if (parseInt(this.yearMonth[i].title) <= parseInt(`${year}${month}`)) {
-          lower = i;
-        }
-      }
-      // if month not found
-      if (this.yearMonth[lower].title != `${year}${month}`) {
-        let ele = {};
-        ele.title = `${year}${month}`;
-        ele.literal = `${year} ${month}月`;
-        if (lower == -1) {
-          // everyone is greater than new YM
-          // new YM should be at the beginning.
-          this.yearMonth.unshift(ele);
-        } else if (lower == this.yearMonth.length - 1) {
-          // everyone is lesser than new YM
-          // new YM should be at the ending.
-          this.yearMonth.push(ele);
-        } else {
-          // new YM should be at the middle of the array.
-          // insert new YM to the right position.
-          this.yearMonth.splice(lower + 1, 0, ele);
-        }
-      }
     }
   }
   resetData(events) {
