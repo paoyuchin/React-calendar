@@ -61,7 +61,6 @@ const ModuleDefaults = {
 const ModuleReturns = [];
 
 function addEvent(event) {
-  // console.log(event)
   // preprocess
   var date = moment(event.date);
   var year = date.get("year");
@@ -112,50 +111,14 @@ function addEvent(event) {
 }
 
 function renderMonth(newMonth) {
-  console.log(this.yearMonth);
   $(".tabBox span").removeClass("active");
-  if (this.yearMonth.length == 1 && this.currentMonth == 0) {
-    $(".tabBox span").removeClass("active").text('');
-    let str2 = this.yearMonth[this.currentMonth].literal;
-    $("span.tab2")
-      .text(str2)
-      .data("title", this.yearMonth[this.currentMonth].title);
-    $(".tab2").addClass("active");
-  }
-  if (this.yearMonth.length == 2 && this.currentMonth == 1) {
-    $(".tabBox span").removeClass("active").text('');
-    let str1 = this.yearMonth[this.currentMonth - 1].literal;
-    let str2 = this.yearMonth[this.currentMonth].literal;
-    $("span.tab1")
-      .text(str1)
-      .data("title", this.yearMonth[this.currentMonth - 1].title);
-    $("span.tab2")
-      .text(str2)
-      .data("title", this.yearMonth[this.currentMonth].title);
-    $(".tab2").addClass("active");
-  }
-  if (this.yearMonth.length == 2 && this.currentMonth == 0) {
-    $(".tabBox span").removeClass("active").text('');
-    let str1 = this.yearMonth[this.currentMonth].literal;
-    let str2 = this.yearMonth[this.currentMonth + 1].literal;
-    $("span.tab1")
-      .text(str1)
-      .data("title", this.yearMonth[this.currentMonth].title);
-    $("span.tab2")
-      .text(str2)
-      .data("title", this.yearMonth[this.currentMonth + 1].title);
-    $(".tab2").addClass("active");
-  }
-  if (this.currentMonth - 1 < 0 && this.yearMonth.length != 1) {
-    console.log(1);
+  if (this.currentMonth - 1 < 0) {
     // no change, highlight tab1
     $(".tab1").addClass("active");
-  } else if (this.currentMonth + 1 == this.yearMonth.length && this.yearMonth.length != 1) {
-    console.log(2);
+  } else if (this.currentMonth + 1 >= this.yearMonth.length) {
     // no change, highlight tab3
     $(".tab3").addClass("active");
   } else {
-    console.log(3);
     // change, highlight tab2
     let str1 = this.yearMonth[this.currentMonth - 1].literal;
     let str2 = this.yearMonth[this.currentMonth].literal;
@@ -350,7 +313,7 @@ function successCallBack(data) {
     }
   }
   // 若輸入的年月沒有資料
-  if (!this.yearMonth[this.currentMonth]) {
+  if (!this.currentMonth) {
     // 就要找相近的年月
     let distance = [];
     let initYM = moment(this.option.initYearMonth, "YYYYMM");
@@ -361,6 +324,7 @@ function successCallBack(data) {
     }
     // 就要找相近的年月
     let min = distance.indexOf(Math.min(...distance));
+
     // 若前一個月後一個月都有資料
     for (let i = 0; i < distance.length; i++) {
       if (i != min && distance[i] == distance[min]) {
@@ -441,19 +405,10 @@ class Module {
   }
   inputData(events) {
     for (let i = 0; i < events.length; i++) {
-      console.log(event)
       let e = events[i];
       let year = moment(e.date).get("year");
       let month = moment(e.date).get("month");
       let date = moment(e.date).get("date");
-
-      let dataKeySetting = this.option.dataKeySetting;
-      e.guaranteed = e[dataKeySetting.guaranteed];
-      e.status = e[dataKeySetting.status];
-      e.available = e[dataKeySetting.available];
-      e.total = e[dataKeySetting.total];
-      e.price = e[dataKeySetting.price];
-
       if (!this.data[year]) {
         this.data[year] = {};
       }
@@ -462,7 +417,33 @@ class Module {
       }
       this.data[year][month][date] = e;
 
- 
+      month = ("0" + (parseInt(month) + 1)).slice(-2);
+      // check if month exists in this.yearMonthMonth
+      let lower = -1;
+      for (let i = 0; i < this.yearMonth.length; i++) {
+        if (parseInt(this.yearMonth[i].title) <= parseInt(`${year}${month}`)) {
+          lower = i;
+        }
+      }
+      // if month not found
+      if (this.yearMonth[lower].title != `${year}${month}`) {
+        let ele = {};
+        ele.title = `${year}${month}`;
+        ele.literal = `${year} ${month}月`;
+        if (lower == -1) {
+          // everyone is greater than new YM
+          // new YM should be at the beginning.
+          this.yearMonth.unshift(ele);
+        } else if (lower == this.yearMonth.length - 1) {
+          // everyone is lesser than new YM
+          // new YM should be at the ending.
+          this.yearMonth.push(ele);
+        } else {
+          // new YM should be at the middle of the array.
+          // insert new YM to the right position.
+          this.yearMonth.splice(lower + 1, 0, ele);
+        }
+      }
     }
     renderEvent.call(this, this.yearMonth[this.currentMonth].title);
   }

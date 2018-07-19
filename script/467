@@ -1,0 +1,28 @@
+     month = ("0" + (parseInt(month) + 1)).slice(-2);
+      // check if month exists in this.yearMonth
+      let lower = -1;
+      for (let i = 0; i < this.yearMonth.length; i++) {
+        if (parseInt(this.yearMonth[i].title) <= parseInt(`${year}${month}`)) {
+          lower = i;
+        }
+      }
+      // if month not found
+      if (this.yearMonth[lower].title != `${year}${month}`) {
+        let ele = {};
+        ele.title = `${year}${month}`;
+        ele.literal = `${year} ${month}月`;
+        //做事
+        if (lower == -1) {
+          // everyone is greater than new YM
+          // new YM should be at the beginning.
+          this.yearMonth.unshift(ele);
+        } else if (lower == this.yearMonth.length - 1) {
+          // everyone is lesser than new YM
+          // new YM should be at the ending.
+          this.yearMonth.push(ele);
+        } else {
+          // new YM should be at the middle of the array.
+          // insert new YM to the right position.
+          this.yearMonth.splice(lower + 1, 0, ele);
+        }
+      }

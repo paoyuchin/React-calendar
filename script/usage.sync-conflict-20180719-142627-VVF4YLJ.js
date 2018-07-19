@@ -80,7 +80,7 @@ $('.calendar').calendar('inputData', [{
 		"price": "234567", // {string|number} XXXXXX | 近期上架
 		"availableVancancy": 100, // {number}
 		"totalVacnacy": 20, // {number}
-		"state": "報名" // {string} 報名 | 後補 | 預定 | 截止 | 額滿 | 關團
+		"status": "報名" // {string} 報名 | 後補 | 預定 | 截止 | 額滿 | 關團
 	},
 	// ...
 ]);
@@ -88,12 +88,12 @@ $('.calendar').calendar('inputData', [{
 
 // 重設資料時，月曆、tab重新產出   
 $('.calendar').calendar('resetData', [{
-	"guaranteed": true, // {boolean}x
-	"date": "2017/12/15", // {string} YYYY/MM/DD
+	"certain": true, // {boolean}x
+	"date": "2016/12/15", // {string} YYYY/MM/DD
 	"price": "234567", // {string|number} XXXXXX | 近期上架
-	"availableVancancy": 0, // {number}
-	"totalVacnacy": 20, // {number}
-	"status": "報名" // {string} 報名 | 後補 | 預定 | 截止 | 額滿 | 關團
+	"onsell": 0, // {number}
+	"total": 20, // {number}
+	"state": "報名" // {string} 報名 | 後補 | 預定 | 截止 | 額滿 | 關團
 }]);
 // destroy calendar，destroy時連class new出來的實例物件也要刪除 ok
 $('.calendar').calendar('destroy');
