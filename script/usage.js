@@ -84,7 +84,9 @@ $('.calendar').calendar('inputData', [{
 	},
 	// ...
 ]);
-// 重設資料時，月曆、tab重新產出   ok
+
+
+// 重設資料時，月曆、tab重新產出   
 $('.calendar').calendar('resetData', [{
 		"guaranteed": true, // {boolean}x
 		"date": "2016/12/15", // {string} YYYY/MM/DD

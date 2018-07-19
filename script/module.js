@@ -62,22 +62,18 @@ const ModuleReturns = [];
 
 function addEvent(event) {
   // preprocess
-  if (!event.guaranteed) {
-    event.guaranteed = event.certain;
-  }
-  if (!event.availableVancancy) {
-    event.availableVancancy = event.onsell;
-  }
-  if (!event.totalVacnacy) {
-    event.totalVacnacy = event.total;
-  }
-  if (!event.status) {
-    event.status = event.state;
-  }
   var date = moment(event.date);
   var year = date.get("year");
   var month = date.get("month");
   var date = date.get("date");
+
+  let dataKeySetting = this.option.dataKeySetting;
+
+  event.guaranteed = event[dataKeySetting.guaranteed];
+  event.status = event[dataKeySetting.status];
+  event.available = event[dataKeySetting.available];
+  event.total = event[dataKeySetting.totalVacnacy];
+  event.price = event[dataKeySetting.price];
   if (!this.data[year]) {
     this.data[year] = {};
   }
@@ -85,8 +81,8 @@ function addEvent(event) {
     this.data[year][month] = {};
   }
   if (!this.data[year][month][date]) {
-    // empty
     this.data[year][month][date] = event;
+
   } else {
     // already has event.
     if (
@@ -251,8 +247,6 @@ function renderEvent(targetMonth) {
         _date.text(eventDate + 1);
         if (events[eventDate + 1]) {
           // 在這邊把event的資料放進li
-          _date.text(eventDate + 1);
-          _date.text(eventDate + 1);
           _status.text(events[eventDate + 1].status);
           _group.text("團位：" + events[eventDate + 1].totalVacnacy);
           _price.text("$" + events[eventDate + 1].price);
@@ -290,6 +284,7 @@ function renderEvent(targetMonth) {
   this.$ele.find("." + this.className + "_daysWrap").remove();
   $calendars_daysWrap.appendTo(this.$ele);
 } //renderEvent
+
 function successCallBack(data) {
   let dataLength = data.length;
   this.data = {};
@@ -448,10 +443,14 @@ class Module {
         }
       }
     }
-  }
-  resetData(events) {
-    this.inputData(events);
     renderEvent.call(this, this.yearMonth[this.currentMonth].title);
+
+  }
+
+  resetData(events) {
+    this.data = {};
+    this.option.dataSource = events;
+    this.init();
   }
   destroy() {
     this.$ele.remove();
